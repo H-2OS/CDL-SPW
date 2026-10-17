@@ -2,7 +2,7 @@
 发布前替换清单（GitHub 不显示这段注释）：
 1. 顶部 hero 图：把 docs/assets/README-hero.png 放进仓库后取消下一行注释。
 2. NOTICE 里的 <AUTHOR> 占位符确认（署名待定，不影响 AGPL-3.0 §5(a) 的改动声明）。
-3. 发布前确认 Releases 已上传 `cdl-for-spw-<版本>.zip` 与对应 `-source.zip`。
+3. 发布前确认 Releases 已上传 `cdl-for-spw-<版本>.spmod` 与对应 `-source.zip`。
 -->
 
 <!-- ![CDL for SPW](docs/assets/README-hero.png) -->
@@ -56,7 +56,7 @@ QQ 交流群：`1130794596`
 
 需要 Salt Player for Windows **1.18.x**（Workshop API `0.1.0-dev20`）与 **Windows 10 / 11 x64**。
 
-1. 前往 [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest) 下载 `cdl-for-spw-<版本>.zip`；或在Steam创意工坊中下载。
+1. 前往 [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest) 下载 `cdl-for-spw-<版本>.spmod`；或从 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3821829015) 订阅。
 2. 在 SPW 的创意工坊 / 插件管理中导入该 zip；
 3. 启用 **CDL for SPW**，播放一首已经有歌词的歌曲。
 
@@ -145,7 +145,7 @@ QQ 交流群：`1130794596`
 
 需要 Salt Player for Windows **1.18.x**（Workshop API `0.1.0-dev20`）與 **Windows 10 / 11 x64**。
 
-1. 前往 [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest) 下載 `cdl-for-spw-<版本>.zip`；或在Steam創意工坊中下載。
+1. 前往 [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest) 下載 `cdl-for-spw-<版本>.spmod`；或從 [Steam 創意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3821829015) 訂閱。
 2. 在 SPW 的創意工坊 / 外掛管理中匯入該 zip；
 3. 啟用 **CDL for SPW**，播放一首已經有歌詞的歌曲。
 
@@ -235,7 +235,7 @@ See the in-app settings page for more settings.
 
 Requires Salt Player for Windows **1.18.x** (Workshop API `0.1.0-dev20`) and **Windows 10 / 11 x64**.
 
-1. Download `cdl-for-spw-<version>.zip` from [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest), or from the Steam Workshop;
+1. Download `cdl-for-spw-<version>.spmod` from [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest), or subscribe on the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3821829015);
 2. Import the zip in SPW's Workshop / plugin manager;
 3. Enable **CDL for SPW** and play a track whose lyrics are already loaded.
 
