@@ -6,4 +6,4 @@
 - 插件版本：`0.0.0`
 - 产物：`dist/cdl-for-spw-0.0.0.zip` · md5 `03094a31f6edab1087ad5283cbbd479a`
 - 对应源码：`dist/cdl-for-spw-0.0.0-source.zip` · md5 `d720937862600514a5a49795f4bb50fc`
-- 构建：`./gradlew plugin`（JDK 21 + `spw-workshop-api 0.1.0-dev21`）
+- 本仓库只含分发源码，不含构建工程 / Gradle Wrapper

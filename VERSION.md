@@ -10,8 +10,6 @@
 |---|---|
 | `src/main/` | 插件源码（101 个 `.kt`，其中 2 个为原实现 GPL 文件） |
 | `native/` | 频谱助手源码 |
-| `build.gradle.kts` / `settings.gradle.kts` / `gradle.properties` | 构建配置（版本 `0.0.0`） |
-| `gradle/` + `gradlew` | Gradle Wrapper |
 | `licenses/` | 第三方许可全文（含 `AGPL-3.0.txt`） |
 | `LICENSE` / `NOTICE` / `THIRD_PARTY_NOTICES.md` | 许可、署名与第三方声明 |
 | `README.md` | 项目说明（三语） |
@@ -19,10 +17,9 @@
 
 **不包含**：`src/probe/`（探针）、`*.bak-*`、`build/`、`.gradle/`。
 
-```bash
-export JAVA_HOME=/path/to/jdk-21
-./gradlew plugin
-```
+本仓库**只包含分发物所需的源码**：构建工程（`build.gradle.kts` / `settings.gradle.kts` /
+`gradle.properties`）与 Gradle Wrapper 不在本仓库。需要从源码构建时，请使用开发仓库
+（构建环境：JDK 21 + `spw-workshop-api 0.1.0-dev21`）。
 
 ## 产物
 
