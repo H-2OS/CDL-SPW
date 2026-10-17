@@ -16,8 +16,6 @@
 
 # CDL for SPW
 
-<p align="center"><b>作者：H-2OS（自宅警備員）</b>　·　<a href="https://github.com/H-2OS/CDL-SPW">github.com/H-2OS/CDL-SPW</a></p>
-
 Custom Desktop Lyrics · 为 Salt Player for Windows 提供更多桌面歌词样式选择。
 
 [![Release](https://img.shields.io/badge/Release-Beta-orange)](https://github.com/H-2OS/CDL-SPW/releases/latest)
