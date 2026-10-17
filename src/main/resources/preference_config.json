@@ -1,0 +1,1737 @@
+{
+  "configs": [
+    {
+      "title": "个性歌词",
+      "config": "cdl.json",
+      "preferences": [
+        {
+          "type": "list",
+          "key": "layout.content_align",
+          "title": "歌词对齐",
+          "entries": [
+            "左对齐",
+            "居中",
+            "右对齐"
+          ],
+          "entry_values": [
+            "LEFT",
+            "CENTER",
+            "RIGHT"
+          ],
+          "default_value": "CENTER"
+        },
+        {
+          "type": "list",
+          "key": "layout.lines",
+          "title": "歌词行数",
+          "summary": "双行时第二行为副歌词，仍受「显示译文行」开关控制。",
+          "entries": [
+            "单行（仅主歌词）",
+            "双行（主歌词 + 副歌词）"
+          ],
+          "entry_values": [
+            "SINGLE",
+            "DUAL"
+          ],
+          "default_value": "SINGLE"
+        },
+        {
+          "type": "seekbar",
+          "key": "layout.line_gap_px",
+          "title": "歌词行间距",
+          "default_value": 0,
+          "min": 0,
+          "max": 80
+        },
+        {
+          "type": "list",
+          "key": "main_lyric.karaoke.mode",
+          "title": "歌词高亮方式",
+          "summary": "三档互斥：整行高亮 / 平滑 / 逐字。有逐字时间轴时「逐字」档以时间轴为准。",
+          "entries": [
+            "不逐字（整行高亮）",
+            "平滑高亮（已读色在字间移动）",
+            "逐字高亮"
+          ],
+          "entry_values": [
+            "LINE",
+            "SMOOTH",
+            "PER_CHAR"
+          ],
+          "default_value": "PER_CHAR"
+        },
+        {
+          "type": "seekbar",
+          "key": "lyric.offset_ms",
+          "title": "歌词高亮偏移 ms",
+          "default_value": 0,
+          "min": -2000,
+          "max": 2000
+        },
+        {
+          "type": "list",
+          "key": "lyric.animation_style",
+          "title": "歌词动效风格",
+          "summary": "歌词换行时**旧行**的退场方式（新行不受影响）。默认「跟随总开关」；选具体风格可让歌词单独一套，而总开关保持不动。",
+          "entries": [
+            "跟随总开关",
+            "淡入",
+            "滑入",
+            "弹出"
+          ],
+          "entry_values": [
+            "FOLLOW",
+            "FADE",
+            "SLIDE",
+            "POP"
+          ],
+          "default_value": "FOLLOW"
+        },
+        {
+          "type": "seekbar",
+          "key": "main_lyric.letter_spacing_tenth_px",
+          "title": "主歌词字间距（0.1 像素）",
+          "summary": "同一行内字符之间的距离。0 = 不加（默认）；10 = 1.0 像素；上限 200 = 20.0 像素。字号越大，同样的像素字距看起来越紧。",
+          "default_value": 0,
+          "min": 0,
+          "max": 200
+        },
+        {
+          "type": "switch",
+          "key": "translation.letter_spacing.follow_main",
+          "title": "副歌词字间距跟随主歌词",
+          "summary": "开启时副歌词按主歌词的字距按字号比例缩放（字越大间距越大）；关闭时副歌词不加字距。",
+          "default_value": true
+        },
+        {
+          "type": "list",
+          "key": "main_lyric.font.family",
+          "title": "字体",
+          "entries": [
+            "Agency FB",
+            "Algerian",
+            "Arial",
+            "Arial Black",
+            "Arial Narrow",
+            "Arial Rounded MT Bold",
+            "Bahnschrift",
+            "Baskerville Old Face",
+            "Bauhaus 93",
+            "Bell MT",
+            "Berlin Sans FB",
+            "Berlin Sans FB Demi",
+            "Bernard MT Condensed",
+            "Blackadder ITC",
+            "Bodoni MT",
+            "Bodoni MT Black",
+            "Bodoni MT Condensed",
+            "Bodoni MT Poster Compressed",
+            "Book Antiqua",
+            "Bookman Old Style",
+            "Bookshelf Symbol 7",
+            "Bradley Hand ITC",
+            "Britannic Bold",
+            "Broadway",
+            "Brush Script MT",
+            "Calibri",
+            "Calibri Light",
+            "Californian FB",
+            "Calisto MT",
+            "Cambria",
+            "Cambria Math",
+            "Candara",
+            "Candara Light",
+            "Castellar",
+            "Centaur",
+            "Century",
+            "Century Gothic",
+            "Century Schoolbook",
+            "Chiller",
+            "Colonna MT",
+            "Comic Sans MS",
+            "Consolas",
+            "Constantia",
+            "Cooper Black",
+            "Copperplate Gothic Bold",
+            "Copperplate Gothic Light",
+            "Corbel",
+            "Corbel Light",
+            "Courier New",
+            "Curlz MT",
+            "DejaVu Math TeX Gyre",
+            "Dialog",
+            "DialogInput",
+            "Dubai",
+            "Dubai Light",
+            "Dubai Medium",
+            "Ebrima",
+            "Edwardian Script ITC",
+            "Elephant",
+            "Engravers MT",
+            "Eras Bold ITC",
+            "Eras Demi ITC",
+            "Eras Light ITC",
+            "Eras Medium ITC",
+            "Felix Titling",
+            "Footlight MT Light",
+            "Forte",
+            "Franklin Gothic Book",
+            "Franklin Gothic Demi",
+            "Franklin Gothic Demi Cond",
+            "Franklin Gothic Heavy",
+            "Franklin Gothic Medium",
+            "Franklin Gothic Medium Cond",
+            "Freestyle Script",
+            "French Script MT",
+            "Gabriola",
+            "Gadugi",
+            "Garamond",
+            "Georgia",
+            "Gigi",
+            "Gill Sans MT",
+            "Gill Sans MT Condensed",
+            "Gill Sans MT Ext Condensed Bold",
+            "Gill Sans Ultra Bold",
+            "Gill Sans Ultra Bold Condensed",
+            "Gloucester MT Extra Condensed",
+            "Goudy Old Style",
+            "Goudy Stout",
+            "Haettenschweiler",
+            "Harlow Solid Italic",
+            "Harrington",
+            "High Tower Text",
+            "Impact",
+            "Imprint MT Shadow",
+            "Informal Roman",
+            "Ink Free",
+            "Javanese Text",
+            "Jokerman",
+            "Juice ITC",
+            "Kingsoft UE",
+            "Kristen ITC",
+            "Kunstler Script",
+            "Leelawadee",
+            "Leelawadee UI",
+            "Leelawadee UI Semilight",
+            "Lucida Bright",
+            "Lucida Calligraphy",
+            "Lucida Console",
+            "Lucida Fax",
+            "Lucida Handwriting",
+            "Lucida Sans",
+            "Lucida Sans Typewriter",
+            "Lucida Sans Unicode",
+            "MS Gothic",
+            "MS Outlook",
+            "MS PGothic",
+            "MS Reference Sans Serif",
+            "MS Reference Specialty",
+            "MS UI Gothic",
+            "MT Extra",
+            "MV Boli",
+            "Magneto",
+            "Maiandra GD",
+            "Malgun Gothic",
+            "Malgun Gothic Semilight",
+            "Marlett",
+            "Matura MT Script Capitals",
+            "MiSans",
+            "Microsoft Himalaya",
+            "Microsoft JhengHei UI",
+            "Microsoft JhengHei UI Light",
+            "Microsoft New Tai Lue",
+            "Microsoft PhagsPa",
+            "Microsoft Sans Serif",
+            "Microsoft Tai Le",
+            "Microsoft Uighur",
+            "Microsoft YaHei UI",
+            "Microsoft YaHei UI Light",
+            "Microsoft Yi Baiti",
+            "Mistral",
+            "Modern No. 20",
+            "Mongolian Baiti",
+            "Monospaced",
+            "Monotype Corsiva",
+            "Myanmar Text",
+            "Niagara Engraved",
+            "Niagara Solid",
+            "Nirmala Text",
+            "Nirmala Text Semilight",
+            "Nirmala UI",
+            "Nirmala UI Semilight",
+            "Noto Sans SC",
+            "Noto Sans SC Medium",
+            "Noto Serif SC",
+            "OCR A Extended",
+            "Old English Text MT",
+            "Onyx",
+            "Palace Script MT",
+            "Palatino Linotype",
+            "Papyrus",
+            "Parchment",
+            "Perpetua",
+            "Perpetua Titling MT",
+            "Playbill",
+            "Poor Richard",
+            "Pristina",
+            "Rage Italic",
+            "Ravie",
+            "Rockwell",
+            "Rockwell Condensed",
+            "Rockwell Extra Bold",
+            "Sans Serif Collection",
+            "SansSerif",
+            "Script MT Bold",
+            "Segoe Fluent Icons",
+            "Segoe MDL2 Assets",
+            "Segoe Print",
+            "Segoe Script",
+            "Segoe UI",
+            "Segoe UI Black",
+            "Segoe UI Emoji",
+            "Segoe UI Historic",
+            "Segoe UI Light",
+            "Segoe UI Semibold",
+            "Segoe UI Semilight",
+            "Segoe UI Symbol",
+            "Segoe UI Variable",
+            "Serif",
+            "Showcard Gothic",
+            "SimSun-ExtB",
+            "SimSun-ExtG",
+            "Sitka Text",
+            "Snap ITC",
+            "Source Han Serif SC Heavy",
+            "Stencil",
+            "Sylfaen",
+            "Symbol",
+            "Tahoma",
+            "Tempus Sans ITC",
+            "Times New Roman",
+            "Trebuchet MS",
+            "Tw Cen MT",
+            "Tw Cen MT Condensed",
+            "Tw Cen MT Condensed Extra Bold",
+            "Verdana",
+            "Viner Hand ITC",
+            "Vivaldi",
+            "Vladimir Script",
+            "Webdings",
+            "Wide Latin",
+            "Wingdings",
+            "Wingdings 2",
+            "Wingdings 3",
+            "Yu Gothic",
+            "Yu Gothic Light",
+            "Yu Gothic Medium",
+            "Yu Gothic UI",
+            "Yu Gothic UI Light",
+            "Yu Gothic UI Semibold",
+            "Yu Gothic UI Semilight",
+            "yyb",
+            "仿宋",
+            "华文中宋",
+            "华文仿宋",
+            "华文宋体",
+            "华文彩云",
+            "华文新魏",
+            "华文楷体",
+            "华文琥珀",
+            "华文细黑",
+            "华文行楷",
+            "华文隶书",
+            "宋体",
+            "幼圆",
+            "微軟正黑體",
+            "微軟正黑體 Light",
+            "微软雅黑",
+            "微软雅黑 Light",
+            "思源黑体",
+            "新宋体",
+            "新細明體-ExtB",
+            "方正姚体",
+            "方正舒体",
+            "楷体",
+            "等线",
+            "等线 Light",
+            "細明體-ExtB",
+            "細明體_HKSCS-ExtB",
+            "細明體_MSCS-ExtB",
+            "隶书",
+            "黑体"
+          ],
+          "entry_values": [
+            "Agency FB",
+            "Algerian",
+            "Arial",
+            "Arial Black",
+            "Arial Narrow",
+            "Arial Rounded MT Bold",
+            "Bahnschrift",
+            "Baskerville Old Face",
+            "Bauhaus 93",
+            "Bell MT",
+            "Berlin Sans FB",
+            "Berlin Sans FB Demi",
+            "Bernard MT Condensed",
+            "Blackadder ITC",
+            "Bodoni MT",
+            "Bodoni MT Black",
+            "Bodoni MT Condensed",
+            "Bodoni MT Poster Compressed",
+            "Book Antiqua",
+            "Bookman Old Style",
+            "Bookshelf Symbol 7",
+            "Bradley Hand ITC",
+            "Britannic Bold",
+            "Broadway",
+            "Brush Script MT",
+            "Calibri",
+            "Calibri Light",
+            "Californian FB",
+            "Calisto MT",
+            "Cambria",
+            "Cambria Math",
+            "Candara",
+            "Candara Light",
+            "Castellar",
+            "Centaur",
+            "Century",
+            "Century Gothic",
+            "Century Schoolbook",
+            "Chiller",
+            "Colonna MT",
+            "Comic Sans MS",
+            "Consolas",
+            "Constantia",
+            "Cooper Black",
+            "Copperplate Gothic Bold",
+            "Copperplate Gothic Light",
+            "Corbel",
+            "Corbel Light",
+            "Courier New",
+            "Curlz MT",
+            "DejaVu Math TeX Gyre",
+            "Dialog",
+            "DialogInput",
+            "Dubai",
+            "Dubai Light",
+            "Dubai Medium",
+            "Ebrima",
+            "Edwardian Script ITC",
+            "Elephant",
+            "Engravers MT",
+            "Eras Bold ITC",
+            "Eras Demi ITC",
+            "Eras Light ITC",
+            "Eras Medium ITC",
+            "Felix Titling",
+            "Footlight MT Light",
+            "Forte",
+            "Franklin Gothic Book",
+            "Franklin Gothic Demi",
+            "Franklin Gothic Demi Cond",
+            "Franklin Gothic Heavy",
+            "Franklin Gothic Medium",
+            "Franklin Gothic Medium Cond",
+            "Freestyle Script",
+            "French Script MT",
+            "Gabriola",
+            "Gadugi",
+            "Garamond",
+            "Georgia",
+            "Gigi",
+            "Gill Sans MT",
+            "Gill Sans MT Condensed",
+            "Gill Sans MT Ext Condensed Bold",
+            "Gill Sans Ultra Bold",
+            "Gill Sans Ultra Bold Condensed",
+            "Gloucester MT Extra Condensed",
+            "Goudy Old Style",
+            "Goudy Stout",
+            "Haettenschweiler",
+            "Harlow Solid Italic",
+            "Harrington",
+            "High Tower Text",
+            "Impact",
+            "Imprint MT Shadow",
+            "Informal Roman",
+            "Ink Free",
+            "Javanese Text",
+            "Jokerman",
+            "Juice ITC",
+            "Kingsoft UE",
+            "Kristen ITC",
+            "Kunstler Script",
+            "Leelawadee",
+            "Leelawadee UI",
+            "Leelawadee UI Semilight",
+            "Lucida Bright",
+            "Lucida Calligraphy",
+            "Lucida Console",
+            "Lucida Fax",
+            "Lucida Handwriting",
+            "Lucida Sans",
+            "Lucida Sans Typewriter",
+            "Lucida Sans Unicode",
+            "MS Gothic",
+            "MS Outlook",
+            "MS PGothic",
+            "MS Reference Sans Serif",
+            "MS Reference Specialty",
+            "MS UI Gothic",
+            "MT Extra",
+            "MV Boli",
+            "Magneto",
+            "Maiandra GD",
+            "Malgun Gothic",
+            "Malgun Gothic Semilight",
+            "Marlett",
+            "Matura MT Script Capitals",
+            "MiSans",
+            "Microsoft Himalaya",
+            "Microsoft JhengHei UI",
+            "Microsoft JhengHei UI Light",
+            "Microsoft New Tai Lue",
+            "Microsoft PhagsPa",
+            "Microsoft Sans Serif",
+            "Microsoft Tai Le",
+            "Microsoft Uighur",
+            "Microsoft YaHei UI",
+            "Microsoft YaHei UI Light",
+            "Microsoft Yi Baiti",
+            "Mistral",
+            "Modern No. 20",
+            "Mongolian Baiti",
+            "Monospaced",
+            "Monotype Corsiva",
+            "Myanmar Text",
+            "Niagara Engraved",
+            "Niagara Solid",
+            "Nirmala Text",
+            "Nirmala Text Semilight",
+            "Nirmala UI",
+            "Nirmala UI Semilight",
+            "Noto Sans SC",
+            "Noto Sans SC Medium",
+            "Noto Serif SC",
+            "OCR A Extended",
+            "Old English Text MT",
+            "Onyx",
+            "Palace Script MT",
+            "Palatino Linotype",
+            "Papyrus",
+            "Parchment",
+            "Perpetua",
+            "Perpetua Titling MT",
+            "Playbill",
+            "Poor Richard",
+            "Pristina",
+            "Rage Italic",
+            "Ravie",
+            "Rockwell",
+            "Rockwell Condensed",
+            "Rockwell Extra Bold",
+            "Sans Serif Collection",
+            "SansSerif",
+            "Script MT Bold",
+            "Segoe Fluent Icons",
+            "Segoe MDL2 Assets",
+            "Segoe Print",
+            "Segoe Script",
+            "Segoe UI",
+            "Segoe UI Black",
+            "Segoe UI Emoji",
+            "Segoe UI Historic",
+            "Segoe UI Light",
+            "Segoe UI Semibold",
+            "Segoe UI Semilight",
+            "Segoe UI Symbol",
+            "Segoe UI Variable",
+            "Serif",
+            "Showcard Gothic",
+            "SimSun-ExtB",
+            "SimSun-ExtG",
+            "Sitka Text",
+            "Snap ITC",
+            "Source Han Serif SC Heavy",
+            "Stencil",
+            "Sylfaen",
+            "Symbol",
+            "Tahoma",
+            "Tempus Sans ITC",
+            "Times New Roman",
+            "Trebuchet MS",
+            "Tw Cen MT",
+            "Tw Cen MT Condensed",
+            "Tw Cen MT Condensed Extra Bold",
+            "Verdana",
+            "Viner Hand ITC",
+            "Vivaldi",
+            "Vladimir Script",
+            "Webdings",
+            "Wide Latin",
+            "Wingdings",
+            "Wingdings 2",
+            "Wingdings 3",
+            "Yu Gothic",
+            "Yu Gothic Light",
+            "Yu Gothic Medium",
+            "Yu Gothic UI",
+            "Yu Gothic UI Light",
+            "Yu Gothic UI Semibold",
+            "Yu Gothic UI Semilight",
+            "yyb",
+            "仿宋",
+            "华文中宋",
+            "华文仿宋",
+            "华文宋体",
+            "华文彩云",
+            "华文新魏",
+            "华文楷体",
+            "华文琥珀",
+            "华文细黑",
+            "华文行楷",
+            "华文隶书",
+            "宋体",
+            "幼圆",
+            "微軟正黑體",
+            "微軟正黑體 Light",
+            "微软雅黑",
+            "微软雅黑 Light",
+            "思源黑体",
+            "新宋体",
+            "新細明體-ExtB",
+            "方正姚体",
+            "方正舒体",
+            "楷体",
+            "等线",
+            "等线 Light",
+            "細明體-ExtB",
+            "細明體_HKSCS-ExtB",
+            "細明體_MSCS-ExtB",
+            "隶书",
+            "黑体"
+          ],
+          "default_value": "@host:MiSans"
+        },
+        {
+          "type": "seekbar",
+          "key": "main_lyric.font.size",
+          "title": "字号",
+          "default_value": 22,
+          "min": 8,
+          "max": 200
+        },
+        {
+          "type": "list",
+          "key": "main_lyric.font.weight",
+          "title": "字体粗细",
+          "summary": "常规 = 改动前的观感；加粗 = 用**该字体自己的粗体**（多字重字体会挑到真字重，单字重字体走算法合成）。",
+          "entries": [
+            "常规",
+            "加粗"
+          ],
+          "entry_values": [
+            "NORMAL",
+            "BOLD"
+          ],
+          "default_value": "NORMAL"
+        },
+        {
+          "type": "switch",
+          "key": "layout.translation.enabled",
+          "title": "显示翻译（副歌词）",
+          "default_value": true
+        },
+        {
+          "type": "seekbar",
+          "key": "layout.translation.scale_percent",
+          "title": "副歌词字号（%）",
+          "summary": "副歌词相对主歌词的字号。100 = 标准（副歌词为主歌词的 64%）；越大副歌词越接近主歌词。",
+          "default_value": 100,
+          "min": 50,
+          "max": 150
+        },
+        {
+          "type": "list",
+          "key": "layout.translation.position",
+          "title": "副歌词位置",
+          "summary": "仅在「歌词行数」为双行且开启了翻译时生效。",
+          "entries": [
+            "主歌词下方（默认）",
+            "主歌词上方"
+          ],
+          "entry_values": [
+            "BELOW",
+            "ABOVE"
+          ],
+          "default_value": "BELOW"
+        },
+        {
+          "type": "list",
+          "key": "layout.noLyrics.mode",
+          "title": "无歌词时的显示",
+          "entries": [
+            "隐藏歌词行",
+            "显示占位文本",
+            "隐藏整个词岛"
+          ],
+          "entry_values": [
+            "HIDE_LINE",
+            "PLACEHOLDER",
+            "HIDE_ISLAND"
+          ],
+          "default_value": "PLACEHOLDER"
+        },
+        {
+          "type": "switch",
+          "key": "layout.noLyrics.showTrackTitle",
+          "title": "无歌词时显示曲名与作者",
+          "default_value": true
+        },
+        {
+          "type": "switch",
+          "key": "layout.noLyrics.showAlbum",
+          "title": "无歌词时同时显示专辑",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "layout.noLyrics.hideWhenInstrumental",
+          "title": "无歌词时隐藏歌词占位句",
+          "summary": "只隐藏占位句（如「纯音乐，请欣赏」「暂无歌词」）；**曲名与作者仍然显示**。窗口、封面与频谱不受影响。",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "layout.noLyrics.titleInTranslation",
+          "title": "无歌词时在译文行显示曲名",
+          "summary": "仅在当前曲目没有歌词时生效。开启后曲名会额外画在第二行（译文行的位置）。",
+          "default_value": false
+        },
+        {
+          "type": "list",
+          "key": "main_lyric.color_mode",
+          "title": "主歌词颜色来源",
+          "entries": [
+            "手动指定",
+            "跟随封面取色"
+          ],
+          "entry_values": [
+            "manual",
+            "cover"
+          ],
+          "default_value": "manual"
+        },
+        {
+          "type": "button",
+          "title": "已唱歌词颜色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickSungColor"
+        },
+        {
+          "type": "button",
+          "title": "未唱歌词颜色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickUnsungColor"
+        },
+        {
+          "type": "button",
+          "title": "译文歌词颜色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickTranslationColor"
+        },
+        {
+          "type": "list",
+          "key": "main_lyric.translation.color_mode",
+          "title": "副歌词颜色来源",
+          "entries": [
+            "手动指定",
+            "跟随封面取色"
+          ],
+          "entry_values": [
+            "manual",
+            "cover"
+          ],
+          "default_value": "manual"
+        },
+        {
+          "type": "switch",
+          "key": "main_lyric.outline.enabled",
+          "title": "主歌词描边",
+          "default_value": false
+        },
+        {
+          "type": "seekbar",
+          "key": "main_lyric.outline.width_tenth_px",
+          "title": "主歌词描边宽度（0.1 像素）",
+          "summary": "仅在开启描边时生效。10 = 1.0 像素（描边在字形外侧的可见厚度约为其一半）。",
+          "default_value": 10,
+          "min": 0,
+          "max": 40
+        },
+        {
+          "type": "button",
+          "title": "主歌词描边色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickMainOutlineColor"
+        },
+        {
+          "type": "switch",
+          "key": "main_lyric.outline.follow_font_weight",
+          "title": "描边粗细跟随字体粗细",
+          "summary": "开启后，字体变粗/变细会按下面的比例带动描边宽度。",
+          "default_value": false
+        },
+        {
+          "type": "seekbar",
+          "key": "main_lyric.outline.weight_link_percent",
+          "title": "描边联动比例（%）",
+          "summary": "描边跟随字体粗细的程度。0 = 完全不跟随；50 = 半跟随（推荐，中值）；100 = 等比跟随。",
+          "default_value": 50,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "type": "switch",
+          "key": "translation.outline.sync_with_main",
+          "title": "副歌词描边跟随主歌词",
+          "summary": "开启后副歌词描边完全跟随主歌词；关闭后可用下方各项单独设置。",
+          "default_value": true
+        },
+        {
+          "type": "switch",
+          "key": "translation.outline.enabled",
+          "title": "副歌词描边",
+          "default_value": false
+        },
+        {
+          "type": "seekbar",
+          "key": "translation.outline.width_tenth_px",
+          "title": "副歌词描边宽度（0.1 像素）",
+          "summary": "仅在开启描边时生效。10 = 1.0 像素（描边在字形外侧的可见厚度约为其一半）。",
+          "default_value": 10,
+          "min": 0,
+          "max": 40
+        },
+        {
+          "type": "button",
+          "title": "副歌词描边色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickTranslationOutlineColor"
+        },
+        {
+          "type": "switch",
+          "key": "translation.outline.follow_weight",
+          "title": "副歌词描边跟随字体粗细",
+          "summary": "开启后，副歌词描边宽度随「字体粗细」按「描边联动比例」变化；关闭时恒用上面的「副歌词描边宽度」。仅在关闭「副歌词描边跟随主歌词」时生效。",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "island.enabled",
+          "title": "显示词岛",
+          "default_value": true
+        },
+        {
+          "type": "switch",
+          "key": "island.interactive",
+          "title": "鼠标穿透",
+          "summary": "**勾选后鼠标可穿过词岛**（词岛不再响应点击与拖动）；取消勾选则词岛可交互。若已穿透而想操作词岛，用右键菜单里的「找回词岛」。",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "island.hide_fullscreen",
+          "title": "全屏时隐藏",
+          "default_value": true
+        },
+        {
+          "type": "switch",
+          "key": "island.hide_paused",
+          "title": "暂停时隐藏",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "island.auto_hide_on_hover",
+          "title": "鼠标经过时自动隐藏",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "island.always_on_top",
+          "title": "窗口置顶",
+          "default_value": true
+        },
+        {
+          "type": "switch",
+          "key": "island.lock_position",
+          "title": "锁定位置",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "island.hit.cover",
+          "title": "封面参与鼠标命中",
+          "summary": "开启后，鼠标停在封面上与停在歌词上一样：词岛不穿透、可拖动，并会展开播放控件。",
+          "default_value": false
+        },
+        {
+          "type": "seekbar",
+          "key": "layout.max_width",
+          "title": "最大宽度",
+          "summary": "开启「固定词岛宽度」时它决定词岛宽度；关闭时它是宽度上限（按歌词长度收缩到此值以内）。",
+          "default_value": 640,
+          "min": 280,
+          "max": 2400
+        },
+        {
+          "type": "switch",
+          "key": "layout.fixed_width",
+          "title": "固定词岛宽度",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "layout.island.height.follow_font",
+          "title": "词岛高度跟随字号",
+          "summary": "关闭后可手动指定高度（相对歌词行总高的比值）。",
+          "default_value": true
+        },
+        {
+          "type": "seekbar",
+          "key": "layout.island.height.ratio_percent",
+          "title": "词岛高度比例",
+          "summary": "词岛收起态高度 ÷ 歌词行总高（含译文行）。仅在关闭「词岛高度跟随字号」时生效。100% = 恰好等于歌词块。",
+          "default_value": 120,
+          "min": 100,
+          "max": 250
+        },
+        {
+          "type": "list",
+          "key": "island.right_slot.component",
+          "title": "右端插槽内容",
+          "summary": "词岛右端那块固定宽的区域里放什么。「关闭」= 留空（歌词区不再让位）；",
+          "entries": [
+            "关闭",
+            "小频谱（5 根细条）",
+            "放射状频谱",
+            "环状频谱",
+            "时钟"
+          ],
+          "entry_values": [
+            "NONE",
+            "SPECTRUM",
+            "RADIAL",
+            "RING",
+            "CLOCK"
+          ],
+          "default_value": "NONE"
+        },
+        {
+          "type": "list",
+          "key": "island.right_slot.spectrum_bars",
+          "title": "小频谱条数",
+          "summary": "右端插槽放「小频谱」时画几根条。仅在该档生效（「放射状 / 环状频谱」的条数由几何自动推导，不受本项影响）。",
+          "entries": [
+            "4 根",
+            "5 根（默认）",
+            "6 根"
+          ],
+          "entry_values": [
+            "4",
+            "5",
+            "6"
+          ],
+          "default_value": "5"
+        },
+        {
+          "type": "list",
+          "key": "island.right_slot.spectrum_color_mode",
+          "title": "插槽频谱颜色来源",
+          "summary": "右端插槽的频谱用哪个颜色来源。默认「跟随主频谱」——改成别的档位后，插槽与主频谱**互不影响**。",
+          "entries": [
+            "跟随主频谱（默认）",
+            "手动指定",
+            "跟随封面取色",
+            "随音量变化",
+            "封面多色流光",
+            "封面迷彩碎色流光"
+          ],
+          "entry_values": [
+            "follow",
+            "manual",
+            "cover",
+            "level",
+            "cover_flow",
+            "cover_camo"
+          ],
+          "default_value": "follow"
+        },
+        {
+          "type": "button",
+          "title": "插槽频谱颜色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickRightSlotSpectrumColor"
+        },
+        {
+          "type": "seekbar",
+          "key": "island.right_slot.radial_inner_percent",
+          "title": "放射·内半径（%）",
+          "summary": "「放射状频谱」条形从多远处开始（占外半径的百分比）。0 = 交于圆心；调大后中心会空出一块（变成环形观感）。",
+          "default_value": 0,
+          "min": 0,
+          "max": 85
+        },
+        {
+          "type": "seekbar",
+          "key": "island.right_slot.ring_inner_percent",
+          "title": "环状·内半径（%）",
+          "summary": "「环状频谱」中心空洞的大小（占外半径的百分比）。调小 = 环变厚、中心洞变小。",
+          "default_value": 55,
+          "min": 0,
+          "max": 85
+        },
+        {
+          "type": "seekbar",
+          "key": "island.right_slot.polar_outer_percent",
+          "title": "极坐标·外半径（%）",
+          "summary": "「放射状 / 环状频谱」条形能伸到多远（占可用半径的百分比）。100 = 撑满插槽；调小 = 整体缩小。",
+          "default_value": 100,
+          "min": 10,
+          "max": 100
+        },
+        {
+          "type": "list",
+          "key": "clock.hour_format",
+          "title": "时钟时制",
+          "summary": "右端插槽放「时钟」时，时间用 24 小时制还是 12 小时制。12 小时制不补零（如「9:05」）。",
+          "entries": [
+            "24 小时制",
+            "12 小时制"
+          ],
+          "entry_values": [
+            "H24",
+            "H12"
+          ],
+          "default_value": "H24"
+        },
+        {
+          "type": "list",
+          "key": "clock.style",
+          "title": "时钟字形",
+          "summary": "右端插槽放「时钟」时，时间用什么字形画。「七段数码管」= 经典数字钟；「点阵」= LED 点阵屏（点之间有缝）；「像素风」= 方块位图字（方块连成笔画）。",
+          "entries": [
+            "七段数码管",
+            "点阵",
+            "像素风"
+          ],
+          "entry_values": [
+            "SEGMENT",
+            "DOT",
+            "PIXEL"
+          ],
+          "default_value": "SEGMENT"
+        },
+        {
+          "type": "list",
+          "key": "shape.type",
+          "title": "外观形态",
+          "entries": [
+            "方形",
+            "圆角矩形",
+            "胶囊"
+          ],
+          "entry_values": [
+            "SQUARE",
+            "ROUNDED_RECT",
+            "PILL"
+          ],
+          "default_value": "SQUARE"
+        },
+        {
+          "type": "seekbar",
+          "key": "shape.corner_radius",
+          "title": "圆角大小 %",
+          "summary": "仅在形态为「圆角矩形」时生效；选「方形」「胶囊」时本项被忽略。",
+          "default_value": 60,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "type": "seekbar",
+          "key": "background.opacity",
+          "title": "背景不透明度 %",
+          "default_value": 96,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "type": "seekbar",
+          "key": "background.cover.angle_deg",
+          "title": "封面图旋转角度",
+          "summary": "仅在「背景颜色来源」选「封面图」时生效。旋转后自动重新等比缩放铺满词岛，无需另设缩放。",
+          "default_value": 0,
+          "min": 0,
+          "max": 360
+        },
+        {
+          "type": "list",
+          "key": "background.color_mode",
+          "title": "背景颜色来源",
+          "entries": [
+            "手动指定",
+            "跟随封面取色",
+            "封面图"
+          ],
+          "entry_values": [
+            "manual",
+            "cover",
+            "cover_image"
+          ],
+          "default_value": "manual"
+        },
+        {
+          "type": "button",
+          "title": "背景颜色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickBackgroundColor"
+        },
+        {
+          "type": "switch",
+          "key": "island.border.enabled",
+          "title": "显示边框",
+          "default_value": false
+        },
+        {
+          "type": "seekbar",
+          "key": "island.border.width_tenth_px",
+          "title": "边框宽度（0.1 像素）",
+          "summary": "仅在开启「显示边框」时生效。10 = 1.0 像素。",
+          "default_value": 10,
+          "min": 0,
+          "max": 80
+        },
+        {
+          "type": "list",
+          "key": "island.border.mode",
+          "title": "边框样式",
+          "summary": "硬边：画一条实线边框。",
+          "entries": [
+            "硬边（实线边框）",
+            "溶边（最外一圈整体淡化，无实线；需背景不透明）"
+          ],
+          "entry_values": [
+            "SOLID",
+            "EDGE_DISSOLVE"
+          ],
+          "default_value": "SOLID"
+        },
+        {
+          "type": "seekbar",
+          "key": "island.border.dissolve_band_percent",
+          "title": "溶边渐变范围（岛体高度的 %）",
+          "summary": "仅在边框样式选「溶边」时生效。50 = 渐变带从边缘一直铺到岛体中线（最平滑）；值越小边缘越硬，0 = 完全不渐变。",
+          "default_value": 50,
+          "min": 0,
+          "max": 50
+        },
+        {
+          "type": "list",
+          "key": "island.border.color_mode",
+          "title": "边框颜色来源",
+          "summary": "仅在开启「显示边框」时生效。",
+          "entries": [
+            "手动指定",
+            "跟随封面取色"
+          ],
+          "entry_values": [
+            "manual",
+            "cover"
+          ],
+          "default_value": "manual"
+        },
+        {
+          "type": "button",
+          "title": "边框色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickBorderColor"
+        },
+        {
+          "type": "list",
+          "key": "material.fill.gradient_style",
+          "title": "背景渐变",
+          "summary": "「关闭」= 现有纯色背景；「线性」= 沿指定角度的线性渐变；「封面多色流光」= 从封面取**多个**颜色做多停靠点渐变（颜色随每首歌变）。",
+          "entries": [
+            "关闭",
+            "线性",
+            "封面多色流光",
+            "封面迷彩碎色流光"
+          ],
+          "entry_values": [
+            "NONE",
+            "LINEAR",
+            "FLOW",
+            "CAMO"
+          ],
+          "default_value": "NONE"
+        },
+        {
+          "type": "button",
+          "title": "渐变止色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickGradientEndColor"
+        },
+        {
+          "type": "seekbar",
+          "key": "material.fill.flow_speed",
+          "title": "流光流速 %",
+          "summary": "「封面多色流光 / 封面迷彩碎色流光」的流动速度。100 = 原速；越大越快（背景与频谱两条流光的周期**按同一比例**缩放，3× 的快慢关系不变）。",
+          "default_value": 100,
+          "min": 10,
+          "max": 300
+        },
+        {
+          "type": "seekbar",
+          "key": "material.fill.gradient_tint_percent",
+          "title": "渐变强度 %",
+          "summary": "起色向止色混合的比例。0 = 不画渐变（走纯色路径）。",
+          "default_value": 30,
+          "min": 0,
+          "max": 60
+        },
+        {
+          "type": "seekbar",
+          "key": "material.fill.gradient_angle_deg",
+          "title": "渐变角度 °",
+          "summary": "0° = 从左到右，90° = 从上到下（顺时针）。",
+          "default_value": 90,
+          "min": 0,
+          "max": 360
+        },
+        {
+          "type": "seekbar",
+          "key": "material.noise.amplitude",
+          "title": "颗粒幅度",
+          "summary": "背景噪点（磨砂颗粒感）。0 = 关闭。",
+          "default_value": 0,
+          "min": 0,
+          "max": 20
+        },
+        {
+          "type": "list",
+          "key": "material.quality",
+          "title": "材质画质档",
+          "summary": "「关闭」= 不画材质的高光 / 渐变 / 噪点三层（「封面图模糊」仍按它自己的开关绘制）；「精简」/「完整」= 都画全部材质，差别在模糊的成本路径。",
+          "entries": [
+            "关闭",
+            "精简",
+            "完整"
+          ],
+          "entry_values": [
+            "OFF",
+            "LITE",
+            "FULL"
+          ],
+          "default_value": "FULL"
+        },
+        {
+          "type": "seekbar",
+          "key": "material.content.blur_radius",
+          "title": "封面图模糊",
+          "summary": "模糊岛体自己的封面图背景（不采桌面）。0 = 关闭。它不是「身后窗口模糊」（那个要采桌面，见 L3）。",
+          "default_value": 0,
+          "min": 0,
+          "max": 40
+        },
+        {
+          "type": "switch",
+          "key": "spectrum.enabled",
+          "title": "显示实时频谱",
+          "default_value": true
+        },
+        {
+          "type": "list",
+          "key": "spectrum.anchor",
+          "title": "频谱贴边",
+          "entries": [
+            "贴底边",
+            "贴顶边",
+            "词岛右端（5 根细条）"
+          ],
+          "entry_values": [
+            "BOTTOM",
+            "TOP",
+            "RIGHT"
+          ],
+          "default_value": "BOTTOM"
+        },
+        {
+          "type": "list",
+          "key": "spectrum.secondary.mode",
+          "title": "副频谱位置",
+          "summary": "受「显示频谱」总开关管理。副频谱画在词岛底边/顶边，透明度单独可调。",
+          "entries": [
+            "关闭（默认）",
+            "底边",
+            "顶边",
+            "底边 + 顶边"
+          ],
+          "entry_values": [
+            "OFF",
+            "BOTTOM",
+            "TOP",
+            "BOTH"
+          ],
+          "default_value": "OFF"
+        },
+        {
+          "type": "seekbar",
+          "key": "spectrum.secondary.opacity_percent",
+          "title": "副频谱不透明度 %",
+          "summary": "仅在副频谱不为「关闭」时生效。建议明显低于「频谱不透明度」。",
+          "default_value": 35,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "type": "list",
+          "key": "spectrum.bar_pitch_mode",
+          "title": "频谱条宽度",
+          "summary": "自动：窄词岛时把频谱条做细以塞下更多条（宽词岛观感不变）。固定：用下面「频谱条间距」的值。",
+          "entries": [
+            "自动（窄岛变细）",
+            "固定（用下方间距值）"
+          ],
+          "entry_values": [
+            "AUTO",
+            "FIXED"
+          ],
+          "default_value": "AUTO"
+        },
+        {
+          "type": "seekbar",
+          "key": "spectrum.bar_pitch_tenth_px",
+          "title": "频谱条间距（0.1 像素）",
+          "summary": "仅在「频谱条宽度」选「固定」时生效。这是柱间距（条 + 缝），不是条宽本身。拖到 0 时缝宽为 0、相邻条无缝 ⇒ 呈现实心频谱。",
+          "default_value": 70,
+          "min": 0,
+          "max": 2000
+        },
+        {
+          "type": "list",
+          "key": "spectrum.bar_shape",
+          "title": "频谱条形状",
+          "summary": "圆角：柱体两端为圆头（改动前的观感）。方角：柱体四角为直角。间距拖到 0（实心频谱）时恒为方角 —— 圆角会在相邻柱之间留出腰形缺口。",
+          "entries": [
+            "圆角",
+            "方角"
+          ],
+          "entry_values": [
+            "ROUND",
+            "SQUARE"
+          ],
+          "default_value": "ROUND"
+        },
+        {
+          "type": "seekbar",
+          "key": "spectrum.height_percent",
+          "title": "频谱高度（占歌词区百分比）",
+          "summary": "100% = 占满歌词区。开启「上下对称双峰」时，双峰以歌词行/两行的中线为对称轴，上下各占该百分比的一半。",
+          "default_value": 100,
+          "min": 10,
+          "max": 100
+        },
+        {
+          "type": "seekbar",
+          "key": "spectrum.bounce_pct",
+          "title": "频谱跳动幅度（%）",
+          "default_value": 100,
+          "min": 100,
+          "max": 300
+        },
+        {
+          "type": "switch",
+          "key": "spectrum.symmetric",
+          "title": "上下对称双峰",
+          "default_value": false
+        },
+        {
+          "type": "list",
+          "key": "spectrum.color_mode",
+          "title": "频谱颜色来源",
+          "entries": [
+            "手动指定",
+            "跟随封面取色",
+            "随音量流光",
+            "封面多色流光",
+            "封面迷彩碎色流光"
+          ],
+          "entry_values": [
+            "manual",
+            "cover",
+            "level",
+            "cover_flow",
+            "cover_camo"
+          ],
+          "default_value": "manual"
+        },
+        {
+          "type": "button",
+          "title": "频谱颜色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickSpectrumColor"
+        },
+        {
+          "type": "switch",
+          "key": "spectrum.fade_top",
+          "title": "顶端淡出",
+          "default_value": true
+        },
+        {
+          "type": "seekbar",
+          "key": "spectrum.opacity_pct",
+          "title": "频谱不透明度 %",
+          "default_value": 75,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "type": "switch",
+          "key": "spectrum.progress_tint",
+          "title": "用频谱色差表示播放进度",
+          "default_value": false
+        },
+        {
+          "type": "seekbar",
+          "key": "spectrum.progress_tint_alpha",
+          "title": "进度色差：未播放段的透明度（%　0=无区别 / 100=只显示已播放）",
+          "default_value": 100,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "type": "switch",
+          "key": "cover.enabled",
+          "title": "显示专辑封面",
+          "summary": "关闭后词岛不显示专辑封面（歌词、频谱与播放控件不受影响）。",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "cover.scale_with_font",
+          "title": "封面随字号缩放",
+          "summary": "仅在开启「显示专辑封面」时生效。",
+          "default_value": true
+        },
+        {
+          "type": "seekbar",
+          "key": "cover.sharpness",
+          "title": "封面清晰度（锐化）",
+          "summary": "仅在开启「显示专辑封面」时生效。0 = 只做高质量缩放；值越大细节越锐，过高会在锐边处出现光晕。",
+          "default_value": 25,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "type": "list",
+          "key": "cover.shape",
+          "title": "封面形状",
+          "summary": "选「圆形」再开「封面转动」，就是黑胶唱片效果。",
+          "entries": [
+            "圆角（默认）",
+            "圆形",
+            "方形"
+          ],
+          "entry_values": [
+            "ROUNDED",
+            "CIRCLE",
+            "SQUARE"
+          ],
+          "default_value": "ROUNDED"
+        },
+        {
+          "type": "switch",
+          "key": "cover.rotate",
+          "title": "封面转动",
+          "summary": "按播放进度匀速旋转（暂停即停）。配「封面形状 = 圆形」是黑胶唱片效果。",
+          "default_value": false
+        },
+        {
+          "type": "seekbar",
+          "key": "cover.rotate_period_s",
+          "title": "封面转动一圈用时（秒）",
+          "summary": "仅在开启「封面转动」时生效。数值越小转得越快。",
+          "default_value": 20,
+          "min": 4,
+          "max": 120
+        },
+        {
+          "type": "switch",
+          "key": "cover.vinyl",
+          "title": "黑胶样式（外围黑环）",
+          "summary": "在封面外围加一圈黑环（不遮住封面本身）。配「圆形 + 转动」是黑胶唱片效果。",
+          "default_value": false
+        },
+        {
+          "type": "list",
+          "key": "controls.triggerMode",
+          "title": "控件触发方式",
+          "entries": [
+            "字形命中",
+            "轮廓命中（悬停到词岛可见区域即展开）"
+          ],
+          "entry_values": [
+            "GLYPH_HIT",
+            "ISLAND_HIT"
+          ],
+          "default_value": "GLYPH_HIT"
+        },
+        {
+          "type": "seekbar",
+          "key": "controls.enterDelayMs",
+          "title": "悬停进入延迟",
+          "default_value": 120,
+          "min": 0,
+          "max": 2000
+        },
+        {
+          "type": "seekbar",
+          "key": "controls.exitDelayMs",
+          "title": "悬停离开延迟",
+          "default_value": 250,
+          "min": 0,
+          "max": 3000
+        },
+        {
+          "type": "list",
+          "key": "controls.animation_style",
+          "title": "播放控件动效风格",
+          "summary": "控件条出现的方式。默认「跟随总开关」；选具体风格可让控件条单独一套。",
+          "entries": [
+            "跟随总开关",
+            "淡入",
+            "滑入",
+            "弹出"
+          ],
+          "entry_values": [
+            "FOLLOW",
+            "FADE",
+            "SLIDE",
+            "POP"
+          ],
+          "default_value": "FOLLOW"
+        },
+        {
+          "type": "seekbar",
+          "key": "controls.hitPaddingPx",
+          "title": "命中框外扩",
+          "default_value": 2,
+          "min": 0,
+          "max": 16
+        },
+        {
+          "type": "list",
+          "key": "controls.position",
+          "title": "控件位置",
+          "entries": [
+            "上方",
+            "下方"
+          ],
+          "entry_values": [
+            "TOP",
+            "BOTTOM"
+          ],
+          "default_value": "BOTTOM"
+        },
+        {
+          "type": "seekbar",
+          "key": "controls.gapPx",
+          "title": "控件与歌词间距",
+          "default_value": 8,
+          "min": 0,
+          "max": 48
+        },
+        {
+          "type": "switch",
+          "key": "controls.showProgress",
+          "title": "显示进度条",
+          "default_value": true
+        },
+        {
+          "type": "seekbar",
+          "key": "controls.autoHideMs",
+          "title": "控件自动隐藏延迟",
+          "default_value": 0,
+          "min": 0,
+          "max": 30000
+        },
+        {
+          "type": "list",
+          "key": "controls.progress_style",
+          "title": "进度条形态",
+          "summary": "经典 = 实心条 + 常显圆点（原样）；流光 = 已播放段用羽化光带推进，圆点仅在悬停或拖动时出现。",
+          "entries": [
+            "经典（实心 + 常显圆点）",
+            "流光（羽化推进 + 圆点不常驻）"
+          ],
+          "entry_values": [
+            "CLASSIC",
+            "GLOW"
+          ],
+          "default_value": "CLASSIC"
+        },
+        {
+          "type": "switch",
+          "key": "animation.enabled",
+          "title": "启用动画",
+          "summary": "关闭后所有过渡与重效果立即消失。控件条的悬停淡入是既有行为，不受本开关影响。",
+          "default_value": true
+        },
+        {
+          "type": "list",
+          "key": "animation.quality",
+          "title": "动画质量",
+          "summary": "决定**开启哪些动画效果**。标准 = 仅基础过渡；高 = 加歌词行退场；极致 = 再加频谱峰值保持。帧率由「动画帧率」单独设置。",
+          "entries": [
+            "标准（仅基础过渡）",
+            "高（基础 + 歌词行退场）",
+            "极致（全部 + 频谱峰值保持）"
+          ],
+          "entry_values": [
+            "STANDARD",
+            "HIGH",
+            "ULTRA"
+          ],
+          "default_value": "HIGH"
+        },
+        {
+          "type": "list",
+          "key": "animation.frame_rate",
+          "title": "动画帧率",
+          "summary": "动画帧率上限。自动 = 跟随显示器刷新率（推荐）。各档取「不超过该值的最高可达帧率」（显示器刷新率的整数分之一），实际值可能低于档位数字、但绝不会超出；CPU 占用偏高时可降到 60。",
+          "entries": [
+            "自动（跟随显示器刷新率）",
+            "不超过 60 Hz（最省电）",
+            "不超过 90 Hz",
+            "不超过 120 Hz",
+            "不超过 144 Hz（最顺滑）"
+          ],
+          "entry_values": [
+            "AUTO",
+            "60",
+            "90",
+            "120",
+            "144"
+          ],
+          "default_value": "AUTO"
+        },
+        {
+          "type": "list",
+          "key": "animation.style",
+          "title": "动效风格（总开关）",
+          "summary": "选具体风格 = **覆盖全部组件**（忽略各组件自己的设置）；选「各组件各自设置」= 总开关不干预，由「歌词动效风格」「播放控件动效风格」分别决定。",
+          "entries": [
+            "各组件各自设置（总开关不干预）",
+            "淡入（覆盖全部组件）",
+            "滑入（覆盖全部组件）",
+            "弹出（覆盖全部组件）"
+          ],
+          "entry_values": [
+            "PER_COMPONENT",
+            "FADE",
+            "SLIDE",
+            "POP"
+          ],
+          "default_value": "PER_COMPONENT"
+        },
+        {
+          "type": "seekbar",
+          "key": "animation.duration_scale",
+          "title": "动画时长（%）",
+          "summary": "50 = 干脆利落，100 = 默认，200 = 舒缓，1000 = 放慢 10 倍。只改时长、不改效果数量；作用于词岛自身的过渡（显隐 / 封面 / 歌词行），菜单与控件条有各自的即时反馈节奏，不跟随。⚠️ 数值越大，动画持续重绘越久 —— 切歌等场景会出现数秒的「卡顿感」（实测 1000 时约 2.6 秒）。",
+          "default_value": 100,
+          "min": 50,
+          "max": 1000
+        },
+        {
+          "type": "seekbar",
+          "key": "menu.opacity_pct",
+          "title": "右键菜单不透明度（%）",
+          "default_value": 100,
+          "min": 30,
+          "max": 100
+        },
+        {
+          "type": "seekbar",
+          "key": "menu.submenu_open_delay_ms",
+          "title": "子菜单展开延迟（ms）",
+          "default_value": 180,
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "type": "seekbar",
+          "key": "menu.submenu_close_delay_ms",
+          "title": "子菜单收起延迟（ms）",
+          "default_value": 250,
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "type": "switch",
+          "key": "settings.auto_ungate_on_touch",
+          "title": "调整颜色时自动打开被关掉的功能",
+          "default_value": true
+        },
+        {
+          "type": "button",
+          "title": "找回词岛",
+          "summary": "显示词岛、解除鼠标穿透并回到主屏幕顶部。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.recover"
+        },
+        {
+          "type": "button",
+          "title": "删除预设…",
+          "summary": "打开预设管理窗：把选中的预设移入 presets/_deleted/ 归档目录（内置预设不可删）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.deletePreset"
+        },
+        {
+          "type": "button",
+          "title": "更改预设…",
+          "summary": "打开预设管理窗：用当前配置覆盖选中的预设（也可在这里重命名）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.changePreset"
+        },
+        {
+          "type": "button",
+          "title": "原创署名与许可证",
+          "summary": "Lyricify（CC BY-SA 4.0）/ AMLL 动画模块（AGPL-3.0）/ 本项目（GPL-3.0）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.about"
+        },
+        {
+          "type": "button",
+          "title": "项目源代码",
+          "summary": "查看源代码、反馈问题与参与贡献。",
+          "arrow_type": "link",
+          "on_click": "dev.cdl.host.CdlPlugin.openSource"
+        }
+      ]
+    }
+  ]
+}

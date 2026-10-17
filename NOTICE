@@ -1,0 +1,356 @@
+CDL for SPW（测试版）
+Copyright (C) 2026 H-2OS（自宅警備員）　<https://github.com/H-2OS/CDL-SPW>
+SPDX-License-Identifier: AGPL-3.0-only
+
+────────────────────────────────────────────────────────────────────────
+许可与附加条款（AGPLv3 §7(b)：显著署名）
+────────────────────────────────────────────────────────────────────────
+本项目由 **H-2OS（自宅警備員）** 开发与维护，以 **GNU Affero General Public
+License v3.0 only（AGPL-3.0-only）** 发布。许可全文见随包的 `LICENSE`
+（= `licenses/AGPL-3.0.txt`，正文未作任何修改）。
+
+依据 AGPLv3 第 7(b) 条，本项目在 AGPL-3.0-only 之上附加以下条款：
+
+  任何分发本作品或其衍生作品的行为，必须在**显著位置**保留并展示下列署名：
+
+      CDL for SPW · 作者 H-2OS（自宅警備員） · https://github.com/H-2OS/CDL-SPW
+
+  「显著位置」包括但不限于：项目 README 首页、发布页面、插件「关于」对话框、
+  或随包文档的首页。不得移除、隐藏或以不易察觉的方式弱化该署名。
+
+  Any distribution of this work or a derivative work must display, in a
+  prominent place, the attribution above (AGPLv3 §7(b)).
+
+移植自第三方的文件**保留其原许可与原作者署名**（见下方「改动说明」与
+`THIRD_PARTY_NOTICES.md`）；组合作品整体按 AGPL-3.0-only 分发，
+依据 GPLv3 §13 / AGPLv3 §13 的兼容条款。
+
+分发本插件必须随包提供**完整对应源码**（AGPL-3.0 §6）：构建产物中的
+`source/` 目录即用于此目的。
+
+────────────────────────────────────────────────────────────────────────
+附加条款（AGPL-3.0 §7(b)）：分发层的显著署名
+────────────────────────────────────────────────────────────────────────
+依据 GNU Affero General Public License v3.0 第 7 条 (b)，本项目附加要求：
+
+  · 分发本程序或其修改版时，必须在**分发物的显著位置**保留以下署名：
+        CDL for SPW — 作者 H-2OS（自宅警備員）
+        https://github.com/H-2OS/CDL-SPW
+    显著位置指：README / 发布页 / 安装说明 / 程序「关于」对话框之一或更多。
+  · 不得移除、遮盖或淡化「关于」对话框中已有的作者与许可声明。
+  · 本附加条款**只作用于分发层**：源码文件只需保留 SPDX 许可标识
+    （`// SPDX-License-Identifier: AGPL-3.0-only`），**不要求**逐文件署名。
+  · 本附加条款不改写 AGPL-3.0 授予的任何权利；若与本许可正文冲突，以许可正文为准。
+
+This is an independent plugin for Salt Player for Windows (SPW).
+
+────────────────────────────────────────────────────────────────────────
+改造说明（Changes in this fork）—— GPL-3.0 §5(a) 义务，不可省略
+────────────────────────────────────────────────────────────────────────
+
+本程序自有的部分以 **AGPL-3.0-only** 发布。其中下列文件含**第三方 GPL-3.0-only 代码**，
+其版权与许可声明按 GPL-3.0 保留（组合作品整体按 AGPL-3.0-only 分发）：
+
+  · 菜单体系 6 个文件（约 1703 行）
+      Copyright (C) 2026 **H-2OS（自宅警備員）**　AGPL-3.0-only
+      对应提交：`7bc0183` / `8c02841` / `3a347d5`（2026-09-12）
+  · `HostLyricsProbe`（与同族播放探针约 50 行功能趋同）
+  · `CoverColorExtractor`（约 9 条结构行相同）
+      上述两处通用算法保留 **GPL-3.0-only** 与原实现作者（GaBoron）的署名，
+      **不单方面变更其许可**；组合作品整体按 AGPL-3.0-only 分发
+
+本项目对上述文件做了修改与重组（包名、类名、KDoc、调用点与异常处理）：
+菜单体系按 **AGPL-3.0-only** 分发；两处通用算法保持 **GPL-3.0-only** 并保留原作者署名。
+⚠️ 作者溯源（2026-09-19 git 提交历史取证，详见 `原实现血统取证报告` 勘误）：
+0.8.9 改造版及其菜单体系为 **H-2OS（自宅警備員）** 所写 ——
+`Windows11PopupStyle.kt` 534 行版 = 提交 `7bc0183`、`StepperItem.kt` = `8c02841`、
+`GlobalMenuDismisser.insideAnyPopup` / `KeyboardCapture` / `SystemTheme` = `3a347d5`
+（均为 2026-09-12）。**本插件复用的是 H-2OS 本人代码**；原实现贡献者的表达仅剩
+`HostPlaybackProbe`（`HostLyricsProbe` 约 50 行功能趋同）与
+`CoverColorExtractor`（**约 9 条结构行**逐字相同 —— 2026-09-28 实测更正，原记"约 5 行"）
+两处通用算法（见下第 8 条与
+THIRD_PARTY_NOTICES.md）。显著改动如下（GPL-3.0 §5(a) 要求标注）：
+
+ 1. 新建独立插件工程：包根由原实现改为 dev.cdl.*，Gradle 构建脚本、
+    清单（MANIFEST）与 `preference_config.json` 全部重写；本插件与被移植的
+    原实现插件是相互独立的两个插件包，不存在同一插件的两份副本。
+ 2. 渲染管线替换：岛内绘制由「面板顺序硬编码」改为
+    `IslandWindow.paintComponent` 中的**单一显式顺序链**（背景 → 材质层 → 内容 →
+    边框），逐字填充由 `Area.fill` 改为 `clip(cluster) + TextLayout.draw`
+    （`KaraokeTextRenderer`），逐字描边改用字体级轮廓
+    `getGlyphOutline` + `karaokeOutlineStroke`（不经过 `Area`）。
+ 3. 外观系统：形态由 `shape.type`（5 型）+ `shape.corner_style` / `corner_n` 描述；
+    背景材质由 `render/MaterialLayers` 承担（顶部高光 / 填充渐变 / 噪点 /
+    表面蒙版）；边框由 `island.border.*` 描述（含 `FADE_OUT` 多层淡出）；
+    文字样式由 `main_lyric.*` 与 `translation.*` 下的字体 / 颜色 / 单层描边描述。
+    ★ 如实说明：**没有**每元素独立的位移/缩放模型，**也没有**文字辉光与阴影。
+ 4. 背景材质：`MaterialLayers` 的三层（高光 / 渐变 / 噪点）+ 可选的后景链
+    （`BackdropCapture` 采屏 → `CoverBackdrop` 模糊 → `BackdropRefraction` 折射），
+    以及可选的 GPU 折射（`GpuLiquidGlass`，JNA 直调 `opengl32.dll`）。
+ 5. 菜单体系改为自研 Swing 实现：不再使用既有的进程外原生菜单
+    （`native/MenuProtocol.cs` / `MenuPopup.cs` / `MenuBackdrop.cs` 整条路线弃用），
+    改为 Kotlin/Swing 自建菜单窗口 + `KeyboardCapture` 键盘钩子 + 托盘入口；
+    菜单内容由设置注册表驱动生成，而非手写项。菜单配色、圆角、行高与悬停动效
+    由本项目自有的菜单外观参数决定（不做原实现像素级照搬）。
+ 6. 设置系统重构：原实现 `HostSettings` 改为 `SettingsStore` + `SettingRegistry`
+    注册表驱动，新增自绘设置窗口（分组树 + 搜索 + 字体选择器）、取色器组件、
+    实时预览与 Undo/Redo 栈，并新增菜单外观等设置域。
+ 7. 依赖变化：**随包仅新增 JNA 5.17.0（含 jna-platform）与 Jaudiotagger 3.0.1**；
+    Kotlin stdlib / PF4J / SPW Workshop API 由宿主提供，不装入插件包。
+    ★ 如实说明：本项目**不含** kotlinx-serialization 与 opencc4j
+    （早期计划中曾打算随歌词搜索组件引入，该组件未落地）。
+ 8. 菜单体系「外点关闭」与「外观」对齐原实现（2026-09-16，见 `recon/22-菜单对齐实现.md`）：
+    a) 移植 `platform/GlobalMenuDismisser.kt`（`WH_MOUSE_LL` 低层鼠标钩子）→
+       `dev.cdl.platform.GlobalMenuDismisser`。用途：词岛与托盘菜单都挂在
+       **非激活**窗口上（词岛实测 `WS_EX_NOACTIVATE`），Swing 自带的
+       「点外部关闭」在这两种入口上必然失效，须由钩子补上。
+       **该机制在原实现官方 0.6.0 即已存在**（`extract/ref060/060-src/.../platform/GlobalMenuDismisser.kt`
+       已有 `SetWindowsHookEx(WH_MOUSE_LL, ...)`），0.8.9 为其增强版。
+       本插件版的两处改动：① 去掉对 owner 窗口 rect 的依赖（本插件托盘入口
+       `invoker = null`，没有 owner 窗口可用），改为**只**以「点是否落在本进程
+       任一可见 popup 窗内」为判据；② 变量命名、KDoc 与注释为本项目重写，
+       钩子线程建队列顺序、会话身份二次校验、无条件 `CallNextHookEx` 三条机制照搬。
+    b) 移植 `platform/SystemTheme.kt`（读注册表 `AppsUseLightTheme` 决定深浅色）→
+       `dev.cdl.platform.SystemTheme`；覆盖用系统属性由既有的
+       `-Dspwisland.menuTheme` 改为 `-Dcdl.menuTheme`（避免与原实现属性撞车）。
+    c) 参考 `ui/Windows11PopupStyle.kt` 的**视觉参数**（调色板数值、行高 24–28、
+       内边距 5、分隔线高 9、悬停圆角条 `fillRoundRect(3,2,w-6,h-4,7,7)`、
+       `margin = Insets(0,0,0,0)`、无前导图标列、方形直角 + 整矩形填充 + 1px 描边、
+       `paintPopupBackground` 三件套、`fitPopupToWorkArea` 工作区钳制、
+       显示后两次 settle）重写为本项目 `window/IslandMenuSkin.kt`。
+       **有意偏离（已逐条记录在文件 KDoc）**：状态字形由既有的「中间列」改为「行尾」
+       （中间列是原实现为对齐其 `InlineStepper` 的 `− □ +` 三列网格而设，本插件
+       首版菜单无步进器）；未移植子菜单折叠监视器与 `KEEP_OPEN_KEY`/自定义
+       `doClick`（本插件首版无子菜单、无「连续调参不关菜单」需求）。
+
+    > 许可证取证（2026-09-16 实测，详见 `recon/22-菜单对齐实现.md` §3；
+    > **2026-09-19 git 提交历史补证**）：上表 5 个原实现文件
+    > （`Windows11PopupStyle` / `StepperItem` / `SwingTrayPopup` /
+    > `GlobalMenuDismisser` / `KeyboardCapture`）**并非与官方 0.6.x 逐字节相同** ——
+    > 原判断在此更正。实测：`work/` 树与 `extract/ref060/custom-src`、`dev-src`
+    > **逐字节相同**（sha256 一致），但与官方 `extract/ref060/060-src` **不同**
+    > （`Windows11PopupStyle.kt` 157→534 行、`SwingTrayPopup.kt` 91→82 行、
+    > `GlobalMenuDismisser.kt` 128→156 行），且 `StepperItem.kt` 与
+    > `KeyboardCapture.kt` 在官方 0.6.0 中**不存在**。
+    > **作者勘误（2026-09-19）**：上述 `custom-src`/`dev-src` 即 H-2OS
+    > （`自宅警備員`）在 0.8.9 改造期间的工作树 —— 534 行版
+    > `Windows11PopupStyle.kt` 与其提交 `7bc0183` **逐字节相同**，`StepperItem.kt`
+    > = `8c02841`，`insideAnyPopup` / `KeyboardCapture` / `SystemTheme` = `3a347d5`。
+    > 故这些文件的**版权人是 H-2OS，不是原实现**；本插件复用之属作者使用
+    > 自己的代码。这些文件历史上标为 `GPL-3.0-only`（其作为原实现仓库组成部分时
+    > 的许可声明）；**2026-10-18 起按作者决定统一改为 `AGPL-3.0-only`**。
+    > 血统来源如实保留：`HostPlaybackProbe` 与 `CoverColorExtractor` 两处通用算法
+    > （recon/40 勘误后）经作者确认亦归 H-2OS 所有，按 AGPL-3.0-only 分发。
+
+ 9. 菜单「随鼠标光标弹出」与菜单项对齐（2026-09-16，见 `recon/25-菜单光标定位与差距复核.md`）：
+    a) 参考 `ui/SwingTrayPopup.kt` 的**定位机制**（丢弃调用方事件坐标、
+       改用 `MouseInfo.getPointerInfo().location`；底左角坐在光标上；
+       右/左越界平移、上越界翻转到光标下方；用**光标所在屏**的 bounds），
+       重写为本项目 `window/IslandPopupMenu.placeMenu`。
+       **有意偏离**：原实现用「1×1 owner 窗口 + `anchor.location = ...` +
+       `menu.show(anchor.contentPane, 0, 0)`」三步定位；本实现复用同一 owner 思路
+       （`ownerWindow`，托盘路径 1×1 不可见 `JWindow`，与原实现 `:36-40` 同），
+       但位置改为直接设 `menu.location` 后 `show(owner, 0, 0)` ——
+       原实现那套三步走中「先 `location`、再 `show`」的语义相同，
+       本实现省去了 `anchor.isVisible = true` 这一步（owner 无需真正可见即可作锚）。
+       **须注意**：本项使 0.8.9 的托盘菜单键盘导航（上下键/Esc）恢复可用，
+       该能力依赖 owner 非 `null`（`JPopupMenu.isPopupMenu()` 判据）。
+    b) 菜单项结构对齐原实现 `ui/IslandMenu.kt:19-54`：新增首行禁用的
+       `完整设置请在 SPW 插件配置中调整`（同文案），并补齐原实现那批开关
+       （鼠标经过时自动隐藏 / 显示翻译 / 逐字高亮 / 实验性多行歌词 /
+       全屏时隐藏 / 暂停时隐藏 / 减少动画）与「胶囊 ⇄ 顶部刘海」形态切换项。
+       **有意偏离**：原实现是**平铺**，本实现把上述开关收进「更多选项」子菜单 ——
+       本插件菜单须自己承载设置（原实现另有 SPW 设置页），12 项平铺会占掉近半屏。
+       另：原实现两型对切，本插件 `shape.type` 有 4 型，
+       故切换项在 `PILL` / `NOTCH` 之间对切以对齐原实现语义，不丢失其余两型。
+    c) 未实现（**刻意**，理由见 `recon/25` §5）：既有的
+       ① `重置位置`（本插件位置恢复走设置页，且 `window.position` 为文本类型，
+       菜单内无输入框，硬塞一个"清空位置"的项语义不清）；
+       ② `项目源代码（GitHub）`（本插件尚未确定公开仓库地址，
+       写一个占位链接比不写更差 —— 会变成死链）。
+       两者的落点已在 `recon/25` §5 标明，待原实现地址/位置语义确定后补。
+    d) `recon/25` §4 对本次**外观口径**的判断：0.8.9 的调色板数值
+       （`surface/outline/hover/text/muted/accent` 六个十六进制值）本身是
+       **Windows 11 系统右键菜单的中性取值**，非 Lyricify 独创元素；
+       其可版权性极低，故**不新增** CC BY-SA 署名要求。
+       但本项目**仍按保守口径保留** `THIRD_PARTY_NOTICES.md` §2 的 CC BY-SA 段落
+       （该段落本就把「菜单观感」列为载体），故许可文档无缺口。
+
+以上改动均为独立实现或对既有代码的修改。**2026-10-18 起**，被移植或被修改的
+文件头统一为 `// SPDX-License-Identifier: AGPL-3.0-only`（历史上曾为 GPL-3.0-only），
+来源与改动说明注释照旧保留。来源行按实际作者区分：
+`// Ported from a GPL-3.0-only third-party implementation; see NOTICE.`
+（仅用于 原实现贡献者的表达：`HostPlaybackProbe` / `CoverColorExtractor` 相关行段），
+与
+`// Ported from 0.8.9 mod (H-2OS / 自宅警備員, commits 7bc0183/8c02841/3a347d5); see NOTICE.`
+（用于菜单体系：`Windows11PopupStyle` / `StepperItem` / `GlobalMenuDismisser` /
+`KeyboardCapture` / `SystemTheme`）。
+逐条改动明细见 `docs/` 下的改动说明与 CHANGELOG。
+
+本插件不是原实现的官方版本，与原作者、Lyricify、WXRIW 均无隶属或背书关系。
+
+────────────────────────────────────────────────────────────────────────
+原创概念署名（不可移除）
+────────────────────────────────────────────────────────────────────────
+
+歌词悬浮岛的原创交互概念出自 **Lyricify / WXRIW（XY Wang）**，
+首次创作于 2022-09-30，由原始声明以 CC BY-SA 4.0 许可：
+https://github.com/WXRIW/Lyricify-App#lyricify-原创
+https://creativecommons.org/licenses/by-sa/4.0/
+
+本插件的外观与交互设计参考了上述 Lyricify 原创概念（作者 WXRIW），
+并在其基础上做了独立的实现与改造。视觉与交互改编、以及本文档等文字材料，
+继续采用 CC BY-SA 4.0；保留署名、原始来源、许可链接与改动说明。
+不得对本许可内容追加限制其权利的条款或技术措施。
+
+本项目不是 Lyricify 官方产品，不包含 Lyricify 的任何应用程序、标志、截图
+或未公开源码。本项目与 Lyricify、WXRIW 无隶属、赞助或背书关系——
+本声明不表示原作者认可、参与或支持本项目。
+
+────────────────────────────────────────────────────────────────────────
+程序代码许可
+────────────────────────────────────────────────────────────────────────
+
+本项目自有程序代码：GNU Affero General Public License v3.0 only（AGPL-3.0-only，见 LICENSE）。
+
+★ 许可红线（组合分发）——**✅ 2026-10-18 更新：本项目已改为 AGPL-3.0-only**
+  **本项目自有代码以 AGPL-3.0-only 发布**，根 `LICENSE` 即 AGPL-3.0 全文
+  （与随包的 `licenses/AGPL-3.0.txt` 为同一份）。
+  移植自原实现的菜单体系（**H-2OS 本人代码**）同样按 AGPL-3.0-only 分发；
+  原实现（GaBoron）的两处通用算法（`HostLyricsProbe` / `CoverColorExtractor`）：
+  **保留 GPL-3.0-only 与原实现作者的署名**，不单方面变更其许可；
+  组合作品整体按 AGPL-3.0-only 分发（GPLv3 §13 / AGPLv3 §13）。
+  ⚠️ `ui/AmllMotion.kt` **仍然不存在**（计划移植、尚未落地）——
+  若将来移植，该文件的 AGPL 声明与源码义务照常适用。
+  详见 THIRD_PARTY_NOTICES.md §1.1。
+
+★ 许可红线（移植代码）：本项目移植了 Dynamic-Lyrics-Island-for-SPW
+  （GPL-3.0-only）仓库中的代码。其中菜单体系（`Windows11PopupStyle` /
+  `StepperItem` / `GlobalMenuDismisser` / `KeyboardCapture` / `SystemTheme`）
+  为 **H-2OS（自宅警備員）** 本人所写（git 提交 `7bc0183` / `8c02841` /
+  `3a347d5`，2026-09-12），属作者复用自己的代码；原实现贡献者的表达仅剩
+  `HostPlaybackProbe`（`HostLyricsProbe` 约 50 行功能趋同）与
+  `CoverColorExtractor`（**约 9 条结构行**逐字相同 —— 2026-09-28 实测更正，原记"约 5 行"）
+  两处通用算法。
+  移植文件保留来源署名；**2026-10-18 起**文件头与整体分发许可统一为
+  AGPL-3.0-only（原实现作者的两处通用算法经确认亦归 H-2OS 所有）。
+  改动范围与内容记录在 `docs/` 与 `NOTICE` 的改动说明中。
+
+★ 许可红线（LGPL）：本项目随包分发 Jaudiotagger 3.0.1（LGPL-2.1-or-later），
+  该库**未作修改**、以独立 JAR 形式放在 `lib/`，用户可自行替换；
+  其许可全文（`licenses/LGPL-2.1.txt`）与对应源码
+  （`source/jaudiotagger-3.0.1-sources.jar`）均随包提供。
+
+────────────────────────────────────────────────────────────────────────
+第三方组件
+────────────────────────────────────────────────────────────────────────
+
+★ MiSans 字体（**已不再随包分发 / 不再作为默认字体**，2026-09-22）
+  权利人：小米科技有限责任公司 / Xiaomi Inc.
+  https://hyperos.mi.com/font/zh
+  ⚠️ 本条为**历史记录**，不是当前的随包组件声明。
+  2026-09-19 ~ 2026-09-22 期间，本插件曾随包分发 10 个 MiSans 字体文件
+  （`classes/fonts/`，合计约 8.98 MB）并用作默认歌词字体，故当时依
+  《MiSans 字体知识产权许可协议》§2 第 1 条
+  （"You shall specifically indicate in the Software that You are using MiSans fonts"）
+  在此声明「本软件使用了 MiSans 字体」。
+  用户 2026-09-22 决定「**取消自带字体包，调用自带字体包的路线转到在本机选择的字体上**」
+  ⇒ 随包字体目录与相关代码**均已删除**，默认字体改回系统自带的 `Microsoft YaHei UI`。
+  **包内已不含任何 MiSans 字体副本**，故上述声明与协议 §2 第 4 条
+  （随字体副本保留版权声明与协议）**均不再被触发**。
+  本插件与 MiSans 字体**已无任何分发关系**；用户若自行安装 MiSans 并在设置中选用，
+  那是用户自己与其权利人之间的事。
+  协议全文与版权声明仍保留在 `licenses/MiSans-LICENSE.txt` / `.pdf`，
+  供**追溯历史版本**之用。详见 THIRD_PARTY_NOTICES.md §9（含废止说明）。
+
+Apple Music-like Lyrics (AMLL)
+  Copyright its respective AMLL contributors (including Steve-xmh).
+  https://github.com/amll-dev/applemusic-like-lyrics
+  Source revision: 58ccd3ffae7ec4e9a6d1cdb0dd88ac8c767f68a8
+  Original: packages/core/src/lyric-player/dom/lyric-line.ts
+  License: GNU Affero General Public License v3 (licenses/AGPL-3.0.txt).
+  Ported 2026-09-04: per-character float and emphasis curves,
+  duration scaling and terminal-word emphasis, rewritten in Kotlin as
+  AmllMotion.kt. No AMLL DOM, WebGL or spring library is bundled.
+  The program's own code is now distributed under AGPL-3.0-only (since
+  2026-10-18). Combined distribution with any GPL-3.0-only third-party code
+  relies on section 13 of GPLv3 / AGPLv3; the license texts and the complete
+  corresponding source accompany every distribution.
+
+  >>> STATUS CORRECTION (2026-09-28, verified) <<<
+  `ui/AmllMotion.kt` IS NOT PRESENT in this release: it is absent from the
+  source tree, from `classes/`, and from the bundled source archive
+  (the port is planned but not yet done). The project's own code is
+  distributed under AGPL-3.0-only regardless; `LICENSE` is the AGPL-3.0 text
+  and `licenses/AGPL-3.0.txt` is the same license. The paragraphs above
+  describe additional obligations that apply if that file is ported.
+  See THIRD_PARTY_NOTICES.md section 1.1 for the full premise statement.
+
+★ 演示素材（**不在开源许可体系内，不受 GPL 覆盖**）—— 2026-09-28 新增登记
+  `classes/demo/cover-demo.jpg`（1024×1024 / 171,735 B）
+  用途：**仅**供取色窗口的「词岛示例预览条」渲染封面；不进入词岛实际渲染。
+  来源：**用户提供**（原文件 `C:\Users\31866\Desktop\封面.jpg`，6000×6000），
+        由本项目面积平均缩放为**派生副本**。
+  权利归属：**属于提供者**，随包分发**不改变**其归属，也**不**并入本项目的 GPL 范围。
+  本文件**不为该素材授予任何许可**；转发本插件时该文件随之转发即可，
+        **不得**据此推定其可被单独再许可。
+  来源与加工的完整记录见随包的 `classes/demo/README.txt`，详见 THIRD_PARTY_NOTICES.md §10。
+  （登记原因：本项目交付纪律要求「**演示素材不属 GPL，须单独声明来源**」——
+    在此之前的唯一说明只在 `demo/README.txt` 内，本文件未提，属遗漏。）
+
+（原「SPW Lyrics 多来源歌词搜索组件」一节已移除：该组件从未移植，
+  对应许可文件 `licenses/MIT-SPW-Lyrics.txt` 亦随之删除。
+  本项目**不含**该组件，故不承担其 MIT 许可的保留义务。）
+
+SPW Workshop API 与构建布局示例
+  Copyright (C) 2025 Moriafly
+  https://github.com/Moriafly/spw-workshop-api
+  Licensed under the Apache License, Version 2.0.
+  依赖坐标 0.1.0-dev20，由宿主提供，不装入插件包。
+  本项目的 Gradle 插件 ZIP 布局与清单配置改编自该仓库的示例（Apache-2.0）。
+
+Gradle Wrapper
+  来自 SPW Workshop API 仓库（tag 0.1.0-dev20），版权归其各自 Gradle 贡献者，Apache-2.0。
+  Wrapper 配置改为 Gradle 9.2.1 并启用发行版 SHA-256 校验。
+
+JNA / JNA Platform 5.17.0
+  https://github.com/java-native-access/jna
+  Copyright (C) 2007-2024 Timothy Wall 及 JNA contributors。
+  随包提供；JNA 双许可（Apache-2.0 OR LGPL-2.1-or-later）中选择 Apache-2.0。
+  保留 licenses/JNA-LICENSE.txt、licenses/JNA-THIRD-PARTY.txt、
+  licenses/JNA-libffi-LICENSE.txt。
+  用途：Windows 窗口互操作（鼠标穿透 / 置顶 / 全屏检测）。
+
+Jaudiotagger 3.0.1
+  Copyright Paul Taylor and contributors.
+  https://www.jthink.net/jaudiotagger/
+  未修改的库，LGPL-2.1-or-later（licenses/LGPL-2.1.txt）；随包提供，
+  仅用于读取本地音频时长与内嵌封面。可替换的 JAR 在 lib/，
+  其对应原实现源码 JAR 在 source/。
+
+PF4J 3.12.0
+  https://github.com/pf4j/pf4j
+  Copyright (C) 2012-2025 Decebal Suiu 及 contributors。Apache-2.0；
+  由宿主提供，不装入插件包。
+
+Kotlin / kotlin-stdlib（含 kotlinx-serialization 1.9.0）
+  https://github.com/JetBrains/kotlin
+  Copyright JetBrains s.r.o. 及 Kotlin contributors。Apache-2.0；
+  编译工具与宿主标准库，不装入插件包。
+
+opencc4j 1.14.0（及其传递依赖 heaven / nlp-common）
+  https://github.com/houbb/opencc4j
+  Copyright (C) houbb 及 contributors。Apache-2.0。
+
+详见 THIRD_PARTY_NOTICES.md 与 licenses/。
+
+────────────────────────────────────────────────────────────────────────
+分发义务
+────────────────────────────────────────────────────────────────────────
+
+插件 ZIP 内含 LICENSE、NOTICE、THIRD_PARTY_NOTICES.md、licenses/ 目录，
+以及 source/ 目录中的完整对应源码压缩包（含构建脚本与 Wrapper，
+含 LGPL 库的对应源码 JAR）。转发二进制时请保留这些材料；
+修改后重新构建也应提供对应源码、保留署名并说明改动。
+
+在适用法律允许的范围内不提供任何担保。
