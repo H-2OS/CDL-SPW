@@ -44,6 +44,22 @@
           "max": 80
         },
         {
+          "type": "seekbar",
+          "key": "main_lyric.letter_spacing_tenth_px",
+          "title": "主歌词字间距（0.1 像素）",
+          "summary": "同一行内字符之间的距离。0 = 不加（默认）；10 = 1.0 像素；上限 200 = 20.0 像素。字号越大，同样的像素字距看起来越紧。",
+          "default_value": 0,
+          "min": 0,
+          "max": 200
+        },
+        {
+          "type": "switch",
+          "key": "translation.letter_spacing.follow_main",
+          "title": "副歌词字间距跟随主歌词",
+          "summary": "开启时副歌词按主歌词的字距按字号比例缩放（字越大间距越大）；关闭时副歌词不加字距。",
+          "default_value": true
+        },
+        {
           "type": "list",
           "key": "main_lyric.karaoke.mode",
           "title": "歌词高亮方式",
@@ -88,22 +104,6 @@
           "default_value": "FOLLOW"
         },
         {
-          "type": "seekbar",
-          "key": "main_lyric.letter_spacing_tenth_px",
-          "title": "主歌词字间距（0.1 像素）",
-          "summary": "同一行内字符之间的距离。0 = 不加（默认）；10 = 1.0 像素；上限 200 = 20.0 像素。字号越大，同样的像素字距看起来越紧。",
-          "default_value": 0,
-          "min": 0,
-          "max": 200
-        },
-        {
-          "type": "switch",
-          "key": "translation.letter_spacing.follow_main",
-          "title": "副歌词字间距跟随主歌词",
-          "summary": "开启时副歌词按主歌词的字距按字号比例缩放（字越大间距越大）；关闭时副歌词不加字距。",
-          "default_value": true
-        },
-        {
           "type": "list",
           "key": "main_lyric.font.family",
           "title": "字体",
@@ -141,6 +141,8 @@
             "Cambria Math",
             "Candara",
             "Candara Light",
+            "Cascadia Code",
+            "Cascadia Mono",
             "Castellar",
             "Centaur",
             "Century",
@@ -394,6 +396,8 @@
             "Cambria Math",
             "Candara",
             "Candara Light",
+            "Cascadia Code",
+            "Cascadia Mono",
             "Castellar",
             "Centaur",
             "Century",
@@ -841,10 +845,10 @@
         },
         {
           "type": "switch",
-          "key": "island.interactive",
-          "title": "鼠标穿透",
-          "summary": "**勾选后鼠标可穿过词岛**（词岛不再响应点击与拖动）；取消勾选则词岛可交互。若已穿透而想操作词岛，用右键菜单里的「找回词岛」。",
-          "default_value": false
+          "key": "playback.autoplay_on_start",
+          "title": "启动时自动播放",
+          "summary": "**插件启动时**若宿主已有播放队列，就自行开始播放。★ 只影响**启动那一刻** —— 暂停之后**不会**自动恢复（那是宿主的播放器行为）。",
+          "default_value": true
         },
         {
           "type": "switch",
@@ -872,8 +876,22 @@
         },
         {
           "type": "switch",
+          "key": "island.interactive",
+          "title": "鼠标穿透",
+          "summary": "**勾选后鼠标可穿过词岛**（词岛不再响应点击与拖动）；取消勾选则词岛可交互。若已穿透而想操作词岛，用右键菜单里的「找回词岛」。",
+          "default_value": false
+        },
+        {
+          "type": "switch",
           "key": "island.lock_position",
           "title": "锁定位置",
+          "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "island.lock_collapsed",
+          "title": "锁定收齐",
+          "summary": "锁定为收起状态：鼠标悬停时**不再展开**控件条。与「锁定位置」相互独立。",
           "default_value": false
         },
         {
@@ -882,6 +900,22 @@
           "title": "封面参与鼠标命中",
           "summary": "开启后，鼠标停在封面上与停在歌词上一样：词岛不穿透、可拖动，并会展开播放控件。",
           "default_value": false
+        },
+        {
+          "type": "switch",
+          "key": "wheel.volume.enabled",
+          "title": "滚轮调整音量",
+          "summary": "鼠标停在词岛上时，向上滚加音量、向下滚减音量。调整的是系统「音量合成器」里本程序的音量（宿主未开放音量接口）。",
+          "default_value": false
+        },
+        {
+          "type": "seekbar",
+          "key": "wheel.volume.step_percent",
+          "title": "滚轮每格音量 %",
+          "summary": "每拨一格滚轮，音量变化多少个百分点。5% 表示全程约 20 格。",
+          "default_value": 5,
+          "min": 1,
+          "max": 20
         },
         {
           "type": "seekbar",
@@ -913,133 +947,6 @@
           "default_value": 120,
           "min": 100,
           "max": 250
-        },
-        {
-          "type": "list",
-          "key": "island.right_slot.component",
-          "title": "右端插槽内容",
-          "summary": "词岛右端那块固定宽的区域里放什么。「关闭」= 留空（歌词区不再让位）；",
-          "entries": [
-            "关闭",
-            "小频谱（5 根细条）",
-            "放射状频谱",
-            "环状频谱",
-            "时钟"
-          ],
-          "entry_values": [
-            "NONE",
-            "SPECTRUM",
-            "RADIAL",
-            "RING",
-            "CLOCK"
-          ],
-          "default_value": "NONE"
-        },
-        {
-          "type": "list",
-          "key": "island.right_slot.spectrum_bars",
-          "title": "小频谱条数",
-          "summary": "右端插槽放「小频谱」时画几根条。仅在该档生效（「放射状 / 环状频谱」的条数由几何自动推导，不受本项影响）。",
-          "entries": [
-            "4 根",
-            "5 根（默认）",
-            "6 根"
-          ],
-          "entry_values": [
-            "4",
-            "5",
-            "6"
-          ],
-          "default_value": "5"
-        },
-        {
-          "type": "list",
-          "key": "island.right_slot.spectrum_color_mode",
-          "title": "插槽频谱颜色来源",
-          "summary": "右端插槽的频谱用哪个颜色来源。默认「跟随主频谱」——改成别的档位后，插槽与主频谱**互不影响**。",
-          "entries": [
-            "跟随主频谱（默认）",
-            "手动指定",
-            "跟随封面取色",
-            "随音量变化",
-            "封面多色流光",
-            "封面迷彩碎色流光"
-          ],
-          "entry_values": [
-            "follow",
-            "manual",
-            "cover",
-            "level",
-            "cover_flow",
-            "cover_camo"
-          ],
-          "default_value": "follow"
-        },
-        {
-          "type": "button",
-          "title": "插槽频谱颜色",
-          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
-          "arrow_type": "none",
-          "on_click": "dev.cdl.host.CdlPlugin.pickRightSlotSpectrumColor"
-        },
-        {
-          "type": "seekbar",
-          "key": "island.right_slot.radial_inner_percent",
-          "title": "放射·内半径（%）",
-          "summary": "「放射状频谱」条形从多远处开始（占外半径的百分比）。0 = 交于圆心；调大后中心会空出一块（变成环形观感）。",
-          "default_value": 0,
-          "min": 0,
-          "max": 85
-        },
-        {
-          "type": "seekbar",
-          "key": "island.right_slot.ring_inner_percent",
-          "title": "环状·内半径（%）",
-          "summary": "「环状频谱」中心空洞的大小（占外半径的百分比）。调小 = 环变厚、中心洞变小。",
-          "default_value": 55,
-          "min": 0,
-          "max": 85
-        },
-        {
-          "type": "seekbar",
-          "key": "island.right_slot.polar_outer_percent",
-          "title": "极坐标·外半径（%）",
-          "summary": "「放射状 / 环状频谱」条形能伸到多远（占可用半径的百分比）。100 = 撑满插槽；调小 = 整体缩小。",
-          "default_value": 100,
-          "min": 10,
-          "max": 100
-        },
-        {
-          "type": "list",
-          "key": "clock.hour_format",
-          "title": "时钟时制",
-          "summary": "右端插槽放「时钟」时，时间用 24 小时制还是 12 小时制。12 小时制不补零（如「9:05」）。",
-          "entries": [
-            "24 小时制",
-            "12 小时制"
-          ],
-          "entry_values": [
-            "H24",
-            "H12"
-          ],
-          "default_value": "H24"
-        },
-        {
-          "type": "list",
-          "key": "clock.style",
-          "title": "时钟字形",
-          "summary": "右端插槽放「时钟」时，时间用什么字形画。「七段数码管」= 经典数字钟；「点阵」= LED 点阵屏（点之间有缝）；「像素风」= 方块位图字（方块连成笔画）。",
-          "entries": [
-            "七段数码管",
-            "点阵",
-            "像素风"
-          ],
-          "entry_values": [
-            "SEGMENT",
-            "DOT",
-            "PIXEL"
-          ],
-          "default_value": "SEGMENT"
         },
         {
           "type": "list",
@@ -1196,11 +1103,11 @@
         {
           "type": "seekbar",
           "key": "material.fill.flow_speed",
-          "title": "流光流速 %",
-          "summary": "「封面多色流光 / 封面迷彩碎色流光」的流动速度。100 = 原速；越大越快（背景与频谱两条流光的周期**按同一比例**缩放，3× 的快慢关系不变）。",
-          "default_value": 100,
-          "min": 10,
-          "max": 300
+          "title": "流光速度",
+          "summary": "「封面多色流光 / 封面迷彩碎色流光」的流动速度（% 原速）：0 = 静止，±50 = 半速，负值 = 反向；默认 15 = 原速的 15%（背景与频谱两条流光同比例缩放）。",
+          "default_value": 15,
+          "min": -50,
+          "max": 50
         },
         {
           "type": "seekbar",
@@ -1219,6 +1126,76 @@
           "default_value": 90,
           "min": 0,
           "max": 360
+        },
+        {
+          "type": "seekbar",
+          "key": "glass.blur_radius",
+          "title": "玻璃 · 模糊半径",
+          "summary": "越大越糊。通透材质下 10 已是「能看清结构」的上限。",
+          "default_value": 10,
+          "min": 0,
+          "max": 20
+        },
+        {
+          "type": "list",
+          "key": "glass.clarity",
+          "title": "玻璃 · 清晰度",
+          "summary": "满 = 不降采样，最清晰但每帧成本最高（通透材质下可能掉到 2Hz 左右）；标准 = 降采样 2 倍，10Hz 的默认档。",
+          "entries": [
+            "满（最清晰，性能代价大）",
+            "高（默认）",
+            "标准（最省）"
+          ],
+          "entry_values": [
+            "MAX",
+            "HIGH",
+            "STANDARD"
+          ],
+          "default_value": "HIGH"
+        },
+        {
+          "type": "seekbar",
+          "key": "glass.dispersion",
+          "title": "玻璃 · 色散",
+          "summary": "边缘的彩边强度（棱镜色差）。0 = 无色散。",
+          "default_value": 35,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "type": "seekbar",
+          "key": "glass.saturation",
+          "title": "玻璃 · 饱和度",
+          "summary": "透过玻璃看到的颜色浓度。100 = 原样。",
+          "default_value": 150,
+          "min": 0,
+          "max": 200
+        },
+        {
+          "type": "seekbar",
+          "key": "glass.surface_alpha",
+          "title": "玻璃 · 表面不透明度",
+          "summary": "玻璃表面那层「膜」的强度。越大越像磨砂、越不透。",
+          "default_value": 10,
+          "min": 0,
+          "max": 30
+        },
+        {
+          "type": "list",
+          "key": "glass.material",
+          "title": "玻璃材质",
+          "summary": "「关闭」= 不启用液态玻璃（默认）；「通透玻璃」保留背后结构；「磨砂玻璃」更柔和，性能开销约为前者的 1/20。",
+          "entries": [
+            "关闭",
+            "通透玻璃（液态）",
+            "磨砂玻璃（亚克力）"
+          ],
+          "entry_values": [
+            "NONE",
+            "LIQUID",
+            "FROSTED"
+          ],
+          "default_value": "NONE"
         },
         {
           "type": "seekbar",
@@ -1254,6 +1231,166 @@
           "default_value": 0,
           "min": 0,
           "max": 40
+        },
+        {
+          "type": "list",
+          "key": "island.right_slot.component",
+          "title": "右端插槽内容",
+          "summary": "词岛右端那块固定宽的区域里放什么。「关闭」= 留空（歌词区不再让位）；",
+          "entries": [
+            "关闭",
+            "小频谱（5 根细条）",
+            "放射状频谱",
+            "环状频谱",
+            "时钟"
+          ],
+          "entry_values": [
+            "NONE",
+            "SPECTRUM",
+            "RADIAL",
+            "RING",
+            "CLOCK"
+          ],
+          "default_value": "NONE"
+        },
+        {
+          "type": "list",
+          "key": "island.right_slot.spectrum_bars",
+          "title": "小频谱条数",
+          "summary": "右端插槽放「小频谱」时画几根条。仅在该档生效（「放射状 / 环状频谱」的条数由几何自动推导，不受本项影响）。",
+          "entries": [
+            "4 根",
+            "5 根（默认）",
+            "6 根"
+          ],
+          "entry_values": [
+            "4",
+            "5",
+            "6"
+          ],
+          "default_value": "5"
+        },
+        {
+          "type": "list",
+          "key": "island.right_slot.spectrum_color_mode",
+          "title": "插槽频谱颜色来源",
+          "summary": "右端插槽的频谱用哪个颜色来源。默认「跟随主频谱」——改成别的档位后，插槽与主频谱**互不影响**。",
+          "entries": [
+            "跟随主频谱（默认）",
+            "手动指定",
+            "跟随封面取色",
+            "随音量变化",
+            "封面多色流光",
+            "封面迷彩碎色流光"
+          ],
+          "entry_values": [
+            "follow",
+            "manual",
+            "cover",
+            "level",
+            "cover_flow",
+            "cover_camo"
+          ],
+          "default_value": "follow"
+        },
+        {
+          "type": "button",
+          "title": "插槽频谱颜色",
+          "summary": "打开取色器（色域板 / 色相条 / 明度条 / RGB / hex）。",
+          "arrow_type": "none",
+          "on_click": "dev.cdl.host.CdlPlugin.pickRightSlotSpectrumColor"
+        },
+        {
+          "type": "seekbar",
+          "key": "island.right_slot.radial_inner_percent",
+          "title": "放射·内半径（%）",
+          "summary": "「放射状频谱」条形从多远处开始（占外半径的百分比）。0 = 交于圆心；调大后中心会空出一块（变成环形观感）。",
+          "default_value": 0,
+          "min": 0,
+          "max": 85
+        },
+        {
+          "type": "seekbar",
+          "key": "island.right_slot.ring_inner_percent",
+          "title": "环状·内半径（%）",
+          "summary": "「环状频谱」中心空洞的大小（占外半径的百分比）。调小 = 环变厚、中心洞变小。",
+          "default_value": 55,
+          "min": 0,
+          "max": 85
+        },
+        {
+          "type": "seekbar",
+          "key": "island.right_slot.polar_outer_percent",
+          "title": "极坐标·外半径（%）",
+          "summary": "「放射状 / 环状频谱」条形能伸到多远（占可用半径的百分比）。100 = 撑满插槽；调小 = 整体缩小。",
+          "default_value": 100,
+          "min": 10,
+          "max": 100
+        },
+        {
+          "type": "list",
+          "key": "island.right_slot.polar_style",
+          "title": "极坐标显示形态",
+          "summary": "「放射状 / 环状频谱」画成柱状还是线状。线状 = 一圈连续折线（以中半径为基线、内外各起伏一半）；线宽会随柱距自动保持可读，不会细到看不见。",
+          "entries": [
+            "柱状（默认）",
+            "线状"
+          ],
+          "entry_values": [
+            "BARS",
+            "LINE"
+          ],
+          "default_value": "BARS"
+        },
+        {
+          "type": "list",
+          "key": "clock.hour_format",
+          "title": "时钟时制",
+          "summary": "右端插槽放「时钟」时，时间用 24 小时制还是 12 小时制。12 小时制不补零（如「9:05」）。",
+          "entries": [
+            "24 小时制",
+            "12 小时制"
+          ],
+          "entry_values": [
+            "H24",
+            "H12"
+          ],
+          "default_value": "H24"
+        },
+        {
+          "type": "list",
+          "key": "clock.style",
+          "title": "时钟字形",
+          "summary": "右端插槽放「时钟」时，时间用什么字形画。「七段数码管」= 经典数字钟；「点阵」= LED 点阵屏（点之间有缝）；「像素风」= 方块位图字（方块连成笔画）。",
+          "entries": [
+            "七段数码管",
+            "点阵",
+            "像素风"
+          ],
+          "entry_values": [
+            "SEGMENT",
+            "DOT",
+            "PIXEL"
+          ],
+          "default_value": "SEGMENT"
+        },
+        {
+          "type": "seekbar",
+          "key": "island.right_slot.spectrum_bar_pitch_tenth_px",
+          "title": "插槽极坐标间距（0.1 像素）",
+          "summary": "影响「放射 / 环形」两档的条数与间隙（条数 = 周长 ÷ 本值）。「侧边条」档不受它影响：五根粗细由槽宽 ÷ 条数均分，本键只决定「是否实心」。拖到 0 时放射 / 环形按实心绘制。",
+          "default_value": 70,
+          "min": 0,
+          "max": 200
+        },
+        {
+          "type": "seekbar",
+          "key": "island.right_slot.spectrum_opacity_pct",
+          "title": "插槽频谱透明度（%）",
+          "summary": "对「侧边条 / 放射 / 环形」三档同时生效。100% = 不透明；0% = 完全看不见。",
+          "default_value": 100,
+          "min": 0,
+          "max": 100
         },
         {
           "type": "switch",
@@ -1327,7 +1464,16 @@
           "summary": "仅在「频谱条宽度」选「固定」时生效。这是柱间距（条 + 缝），不是条宽本身。拖到 0 时缝宽为 0、相邻条无缝 ⇒ 呈现实心频谱。",
           "default_value": 70,
           "min": 0,
-          "max": 2000
+          "max": 200
+        },
+        {
+          "type": "seekbar",
+          "key": "spectrum.secondary.bar_pitch_tenth_px",
+          "title": "副频谱条间距（0.1 像素）",
+          "summary": "只影响副频谱（第二行）。主频谱用「频谱条间距」那一项。",
+          "default_value": 70,
+          "min": 0,
+          "max": 200
         },
         {
           "type": "list",
@@ -1667,6 +1813,39 @@
           "max": 1000
         },
         {
+          "type": "switch",
+          "key": "animation.width_grow.enabled",
+          "title": "启用宽度生长动画",
+          "summary": "切歌时歌词长短变化 ⇒ 词岛宽度**平滑过渡**（而不是瞬间跳变）。关闭后回到「瞬间切换」，性能最好。",
+          "default_value": true
+        },
+        {
+          "type": "seekbar",
+          "key": "animation.width_grow.duration_ms",
+          "title": "宽度生长时长（毫秒）",
+          "summary": "80 = 几乎看不出过渡，220 = 默认，500 = 明显的「伸展」感。⚠️ 不受「动画时长（%）」缩放 —— 那个只作用于 alpha/位置类动效。",
+          "default_value": 220,
+          "min": 80,
+          "max": 500
+        },
+        {
+          "type": "list",
+          "key": "animation.width_grow.style",
+          "title": "宽度生长曲线",
+          "summary": "平滑 = 两端缓、中段快（默认）；线性 = 匀速；先快后慢 = 起步迅速、结尾柔和（适合「由长变短」）。",
+          "entries": [
+            "平滑（smoothstep）",
+            "线性（匀速）",
+            "先快后慢（ease-out）"
+          ],
+          "entry_values": [
+            "SMOOTH",
+            "LINEAR",
+            "EASE_OUT"
+          ],
+          "default_value": "SMOOTH"
+        },
+        {
           "type": "seekbar",
           "key": "menu.opacity_pct",
           "title": "右键菜单不透明度（%）",
@@ -1685,7 +1864,8 @@
         {
           "type": "seekbar",
           "key": "menu.submenu_close_delay_ms",
-          "title": "子菜单收起延迟（ms）",
+          "title": "菜单收起延迟（ms）",
+          "summary": "鼠标离开菜单后多久收起。**一级菜单与子菜单共用这一条**（子菜单用你设的值；一级菜单另有 800 ms 下限，避免手一移开就消失）。",
           "default_value": 250,
           "min": 0,
           "max": 1000

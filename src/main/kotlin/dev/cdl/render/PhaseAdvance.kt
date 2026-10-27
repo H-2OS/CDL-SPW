@@ -1,119 +1,30 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-//
-// 「由播放位置推进的循环相位」—— **唯一出口**（2026-10-03）
-//
-// ══════════════════════════════════════════════════════════════════════════════
-// 为什么单独一个文件（而不是留在各自的 render 文件里）
-// ══════════════════════════════════════════════════════════════════════════════
-//
-// 本项目已有**一处**这种逻辑：`CoverWaterLevel.wavePhase`（封面态水位波动）。
-// 而 ⑰「封面多色流光」的 **F2（位移动画）** 会是**第二处** —— 台账 §3.15′ 明令：
-//
-// > ★★ 与 ⑭ 进度条 `GLOW`（已完成）**同族** ⇒ **先抽公用推进逻辑**
-// > （纪律 10：「改了 A 但 A 的输入被 B 掐断」已犯 6 次；首选修法是"**合并成唯一出口**"）
-//
-// ⇒ 本文件就是那个出口。`CoverWaterLevel.wavePhase` **改为委托到本函数**
-//   （**零行为改动**：逐字搬运算），F2 直接用本函数。
-//
-// ══════════════════════════════════════════════════════════════════════════════
-// ★★ 一条纪律：**相位由【播放位置】推进，不是墙钟**
-// ══════════════════════════════════════════════════════════════════════════════
-//
-// 这是本项目**反复出现**的一条取舍，已有两个先例：
-//   · `CoverWaterLevel.wavePhase` —— 「用播放位置（不是墙钟时间）⇒ **暂停即冻结**」
-//   · `coverRotationDegrees` —— 封面转动同样用 `positionMs`
-//
-// 用墙钟的后果：**暂停时水还在晃 / 封面还在转**，而音乐停了 —— 用户看到的是
-// "这东西自己在动"，与"它在表现音乐"这个前提**矛盾**。
-//
-// ⇒ 本函数只吃 `positionMs`，**不碰 `System.currentTimeMillis()` / `nanoTime()`**
-//   ⇒ **调用方无法用错时钟**（把"该用哪个时钟"这个决定**从每个调用点收回到一处**）。
-
 package dev.cdl.render
 
-/**
- * 由**播放位置**算**循环相位**（`0f..1f`）—— 纯函数，唯一出口。
- *
- * ```
- * phase = (positionMs mod periodMs) / periodMs
- * ```
- *
- * ## 三条边界（都有明确取舍）
- *
- * | 输入 | 返回 | 为什么 |
- * |---|---|---|
- * | `periodMs <= 0` | `0f` | "周期为 0"没有意义 ⇒ 退回静止，而不是除零/NaN |
- * | `positionMs` 为负 | 归入 `0..1`（`+ periodMs`） | 宿主可能报**瞬时负值**（起播/跳转的那一帧）⇒ 不取模会让相位变负 ⇒ 渐变反向跳一下 |
- * | `positionMs == 0` | `0f` | 起播相位为 0（可预期） |
- *
- * ## 为什么用 `mod` 而不是"累加并取余"
- *
- * 累加需要**存状态**（上一帧的相位）⇒ 一旦丢帧/跳转就会漂移，且**暂停再播**
- * 无法复现同一相位。而 `positionMs` 是**绝对量** ⇒ 本函数**无状态、可复现**：
- * 同一 `positionMs` 永远给同一相位（这正是"暂停即冻结"能成立的原因）。
- *
- * @param periodMs 一个完整循环的时长（越小越快）。`<= 0` ⇒ `0f`。
- * @return `0f..1f`（含 0，不含 1）。
- */
 fun loopPhase(positionMs: Long, periodMs: Long): Float {
     if (periodMs <= 0L) return 0f
     val m = positionMs % periodMs
-    // 负位置（理论上不该有，但宿主可能报瞬时负值）⇒ 取绝对值域，避免负相位。
+
     val v = if (m < 0L) m + periodMs else m
     return v.toFloat() / periodMs.toFloat()
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// ★★★ 2026-10-16（**用户要求「加入对流光流速的流速调整设置」**）
-// ══════════════════════════════════════════════════════════════════════════════
+const val FLOW_SPEED_MIN = -50
 
-/** 流光流速的**下限 %**（= 10 倍慢）。★ 与注册表 `material.fill.flow_speed` 的 `range` 下界同值。 */
-const val FLOW_SPEED_MIN_PCT = 10
+const val FLOW_SPEED_MAX = 50
 
-/** 流光流速的**上限 %**（= 3 倍快）。★ 与注册表 `material.fill.flow_speed` 的 `range` 上界同值。 */
-const val FLOW_SPEED_MAX_PCT = 300
+const val FLOW_SPEED_DEFAULT = 15
 
-/**
- * 把**基准周期**按「流光流速 %」缩放 —— 纯函数，**唯一换算点**。
- *
- * ```
- * period = basePeriodMs * 100 / speedPercent
- * ```
- *
- * ## 为什么是"乘 100 除以流速"（而不是"乘流速除以 100"）
- *
- * ★ 设置项叫**流速**（不是"周期"）⇒ **数越大越快**才符合直觉 ✓
- *   · 100% ⇒ `base × 100 / 100 = base` ⇒ ★ **逐毫秒等于改动前**（开箱零回归）✓
- *   · 200% ⇒ 周期减半 ⇒ **快一倍** ✓
- *   · 50%  ⇒ 周期翻倍 ⇒ **慢一半** ✓
- *
- * ## ★★ 它同时服务**两条流光**（背景 + 频谱），且**保持它们的 3× 关系**
- *
- * 工程里有两个基准周期：`FLOW_PERIOD_MS`（背景 6 s）与 `SPECTRUM_FLOW_PERIOD_MS`
- * （频谱 18 s —— **BUG-172** 定为 3 倍慢：频谱带比整岛背景短一个量级，
- * 而相位是**相对量** ⇒ 同样的相位速度在短轴上看起来更快）。
- *
- * ★ 两条都经**本函数**换算 ⇒ ★★ **3× 的快慢关系对这个键恒定不变** ✓
- *   （若只缩放一条，那条 3× 关系就被这个键悄悄改掉了 ✗）
- *   ★ 这也是用户 2026-09-30 自定的纪律：「**已有同形态的设置项不再设立独特的
- *     调整选项，而是使用通用控制项**」—— 「流光流速」正是那个**通用项** ✓
- *
- * ## 三条边界（都有明确取舍）
- *
- * | 输入 | 返回 | 为什么 |
- * |---|---|---|
- * | `speedPercent` 越界 | 夹到 `[10, 300]` | ★ **`0` 会除零** ⇒ 必须有下界；纵深防御（注册表已夹过一次）|
- * | `basePeriodMs <= 0` | `1` | 周期非正没有意义；★ 交回 [loopPhase] 由它退化成 `0f`（静止）|
- * | 100 | **`basePeriodMs`** | ★ 整数运算 ⇒ **逐毫秒相等** ⇒ 开箱零回归 ✓ |
- *
- * ⚠️ **为什么下限取 10 而不是 1**：1% 意味着背景 600 s 一个周期 ——
- *   用户看到的将是**静止**，与"流光坏了"**无法区分**（本项目最忌讳的形态）。
- *
- * @param basePeriodMs 该条流光的基准周期（100% 时的周期）。
- * @param speedPercent 流光流速 %（`material.fill.flow_speed`）。
- * @return 缩放后的周期（毫秒），**恒 ≥ 1**。
- */
 fun scaledFlowPeriodMs(basePeriodMs: Long, speedPercent: Int): Long {
-    val s = speedPercent.coerceIn(FLOW_SPEED_MIN_PCT, FLOW_SPEED_MAX_PCT)
-    return (basePeriodMs * 100L / s).coerceAtLeast(1L)
+    if (basePeriodMs <= 0L) return 1L
+    val s = speedPercent.coerceIn(FLOW_SPEED_MIN, FLOW_SPEED_MAX)
+    if (s == 0) return Long.MAX_VALUE
+    return (basePeriodMs * 100L / kotlin.math.abs(s)).coerceAtLeast(1L)
+}
+
+fun flowPhase(positionMs: Long, basePeriodMs: Long, speedPercent: Int): Float {
+    val period = scaledFlowPeriodMs(basePeriodMs, speedPercent)
+    if (period == Long.MAX_VALUE) return 0f
+    val p = loopPhase(positionMs, period)
+    return if (speedPercent < 0) (1f - p) % 1f else p
 }

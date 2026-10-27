@@ -1,12 +1,3 @@
-<!--
-发布前替换清单（GitHub 不显示这段注释）：
-1. 顶部 hero 图：把 docs/assets/README-hero.png 放进仓库后取消下一行注释。
-2. NOTICE 的署名已填为 H-2OS（自宅警備員）；若将来更换署名，需同步 NOTICE、关于对话框与 README。
-3. 发布前确认 Releases 已上传 `cdl-for-spw-<版本>.spmod` 与对应 `-source.zip`。
--->
-
-<!-- ![CDL for SPW](docs/assets/README-hero.png) -->
-
 <a id="简体中文"></a>
 <p align="center">
   <b>简体中文</b> &nbsp;|&nbsp;
@@ -20,33 +11,33 @@
 
 Custom Desktop Lyrics · 为 Salt Player for Windows 提供更多桌面歌词样式选择。
 
-[![Release](https://img.shields.io/badge/Release-Beta-orange)](https://github.com/H-2OS/CDL-SPW/releases/latest)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-orange)](https://github.com/H-2OS/CDL-SPW/releases/latest)
 ![Windows 10 / 11](https://img.shields.io/badge/Windows-10%20%2F%2011-0078D4)
 ![Salt Player for Windows](https://img.shields.io/badge/SPW-1.18.x-2ea44f)
 [![License](https://img.shields.io/badge/License-AGPL--3.0--only-blue)](LICENSE)
 
 把 SPW 当前播放的歌词显示在桌面上：一个具有多种外观选择的歌词岛。主歌词、译文、频谱、封面、背景、边框、播放控件各有独立的设置组，拥有上百种组合。
 
-QQ 交流群：`1130794596`
+QQ 交流群：`1020807578`
 
-> **当前为测试版（Beta）**：可能给您带来不好的体验，我们将会持续改进。
+> **当前版本：V1.0.0 
 > 插件 ID 为 `dev.cdl.spw`，与其他歌词插件相互独立，可同时安装。
 
 ## 功能
 
 - **预设系统**：把当前配置保存为预设，支持导入 / 导出（JSON 与 `键=值` 的 TXT，以文件名为预设名）；导入前可预览会改动哪些键，遇到本版没有的键会如实上报；预设可删除（移入 `presets/_deleted/`，可手工移回）、覆盖、重命名；内置预设不可删除或覆盖。（布置在右键菜单中）
-- **设置规模**：149 个设置键，按 11 个组件分组（每组不超过 30 项）；常规项直接在 SPW 设置页调整，常用项也在右键菜单。
+- **设置规模**：100+ 个设置键，按 10 个组件分组；常规项直接在 SPW 设置页调整，常用项也在右键菜单。
 - **实时预览**：设置页内的示例词岛与真机共用同一套绘制路径，调整即时可见。
 - **托盘图标**：可通过单/双击便捷地控制歌曲播放。
 - **取色器**：色域板 + 色相条 + 明度条 + RGB 分组 + 十六进制输入；灰度时保留原色相。
-- **字体**：系统字体、字体文件，或宿主内置字体（31 个族，含字重与斜体）；最近使用的 10 个字体单独列出；SPW 设置页的字体列表可搜索。
+- **字体**：系统字体、字体文件，或宿主内置字体（含字重与斜体）；最近使用的字体单独列出；SPW 设置页的字体列表可搜索。
 - **歌词**：逐字高亮（逐字 / 整行 / 平滑三档）、单行 / 双行、字号 / 字重 / 字距 / 行距、最大宽度与对齐。
 - **译文**：独立开关、独立字号与颜色，可放在主歌词上方或下方，未唱段可单独淡化。
-- **描边**：硬边 / 向外渐变 / 溶边三种模式；向外渐变按层递减，不使用预乘蒙版。
-- **词岛**：方形 / 圆角矩形 / 胶囊，圆角支持连续曲率（squircle）；宽度、高度、透明度、内容对齐可调。
-- **背景材质**：纯色 / 线性渐变 / 多色流光 / 封面迷彩碎色；流光速度可调。
+- **边框**：硬边 / 溶边两种模式；溶边把最外一圈擦成透明。
+- **词岛**：方形 / 圆角矩形 / 胶囊，圆角大小可调；宽度、高度、透明度、内容对齐可调。
+- **背景材质**：纯色 / 线性渐变 / 多色流光 / 封面迷彩碎色；流光速度可调（支持反向与静止）。
 - **频谱**：贴底边 / 右端五条 / 环状 / 放射四种布局；手动 / 封面 / 随音量 / 封面流光 / 碎色等五种取色；柱形圆角、实心与折线、透明度。
-- **封面**：封面显示、缩放、封面取色、黑胶环、水波与封面态外观。
+- **封面**：封面显示、缩放、封面取色与黑胶环。
 - **插槽**：右端插槽可在小频谱 / 环状频谱 / 放射频谱 / 时钟 / 无之间切换。
 - **时钟**：12 / 24 时制；七段数码管、点阵、像素风三种字形。
 - **播放控件**：悬停展开上一首 / 播放暂停 / 下一首与可拖动进度条；经典与流光两种样式。
@@ -56,7 +47,7 @@ QQ 交流群：`1130794596`
 
 ## 安装
 
-需要 Salt Player for Windows **1.18.x**（Workshop API `0.1.0-dev20`）与 **Windows 10 / 11 x64**。
+需要 Salt Player for Windows **1.18.x**（Workshop API `0.1.0-dev21`）与 **Windows 10 / 11 x64**。
 
 1. 前往 [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest) 下载 `cdl-for-spw-<版本>.spmod`；或从 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3821829015) 订阅。
 2. 在 SPW 的创意工坊 / 插件管理中导入该 zip；
@@ -77,7 +68,7 @@ QQ 交流群：`1130794596`
 
 ## 反馈与贡献
 
-欢迎各位志同道合的朋友们一同共建！遇到问题或有好的功能想法，欢迎提issue或PR，或加入 QQ 群 `1130794596` 交流。
+欢迎各位志同道合的朋友们一同共建！遇到问题或有好的功能想法，欢迎提issue或PR，或加入 QQ 群 `1020807578` 交流。
 
 ## 许可与致谢
 
@@ -116,26 +107,26 @@ Custom Desktop Lyrics · 為 Salt Player for Windows 提供更多桌面歌詞樣
 
 把 SPW 目前播放的歌詞顯示在桌面上：一個具有多種外觀選擇的歌詞島。主歌詞、譯文、頻譜、封面、背景、邊框、播放控制項各有獨立的設定組，擁有上百種組合。
 
-QQ 交流群：`1130794596`
+QQ 交流群：`1020807578`
 
-> **目前為測試版（Beta）**：可能給您帶來不好的體驗，我們會持續改進。
+> **目前版本：V1.0.0
 > 外掛 ID 為 `dev.cdl.spw`，與其他歌詞外掛相互獨立，可同時安裝。
 
 ## 功能
 
 - **預設系統**：把目前設定存為預設，支援匯入 / 匯出（JSON 與 `鍵=值` 的 TXT，以檔名為預設名）；匯入前可預覽會改動哪些鍵，遇到本版沒有的鍵會如實回報；預設可刪除（移入 `presets/_deleted/`，可手動移回）、覆蓋、重新命名；內建預設不可刪除或覆蓋。（佈置在右鍵選單中）
-- **設定規模**：149 個設定鍵，依 11 個元件分組（每組不超過 30 項）；常規項直接在 SPW 設定頁調整，常用項也在右鍵選單。
+- **設定規模**：100+ 個設定鍵，依 10 個元件分組（每組不超過 30 項）；常規項直接在 SPW 設定頁調整，常用項也在右鍵選單。
 - **即時預覽**：設定頁內的範例詞島與真機共用同一套繪製路徑，調整即時可見。
 - **托盤圖示**：可透過單 / 雙擊便捷地控制歌曲播放。
 - **取色器**：色域板 + 色相條 + 明度條 + RGB 分組 + 十六進位輸入；灰階時保留原色相。
-- **字型**：系統字型、字型檔，或宿主內建字型（31 個族，含字重與斜體）；最近使用的 10 個字型單獨列出；SPW 設定頁的字型清單可搜尋。
+- **字型**：系統字型、字型檔，或宿主內建字型（含字重與斜體）；最近使用的字型單獨列出；SPW 設定頁的字型清單可搜尋。
 - **歌詞**：逐字高亮（逐字 / 整行 / 平滑三檔）、單行 / 雙行、字號 / 字重 / 字距 / 行距、最大寬度與對齊。
 - **譯文**：獨立開關、獨立字號與顏色，可放在主歌詞上方或下方，未唱段可單獨淡化。
-- **描邊**：硬邊 / 向外漸層 / 溶邊三種模式；向外漸層依層遞減，不使用預乘遮罩。
-- **詞島**：方形 / 圓角矩形 / 膠囊，圓角支援連續曲率（squircle）；寬度、高度、透明度、內容對齊可調。
-- **背景材質**：純色 / 線性漸層 / 多色流光 / 封面迷彩碎色；流光速度可調。
+- **邊框**：硬邊 / 溶邊兩種模式；溶邊把最外一圈擦成透明。
+- **詞島**：方形 / 圓角矩形 / 膠囊，圓角大小可調；寬度、高度、透明度、內容對齊可調。
+- **背景材質**：純色 / 線性漸層 / 多色流光 / 封面迷彩碎色；流光速度可調（支援反向與靜止）。
 - **頻譜**：貼底邊 / 右端五條 / 環狀 / 放射四種佈局；手動 / 封面 / 隨音量 / 封面流光 / 碎色等五種取色；柱形圓角、實心與折線、透明度。
-- **封面**：封面顯示、縮放、封面取色、黑膠環、水波與封面態外觀。
+- **封面**：封面顯示、縮放、封面取色與黑膠環。
 - **插槽**：右端插槽可在小頻譜 / 環狀頻譜 / 放射頻譜 / 時鐘 / 無之間切換。
 - **時鐘**：12 / 24 時制；七段數位管、點陣、像素風三種字形。
 - **播放控制項**：懸停展開上一首 / 播放暫停 / 下一首與可拖動進度條；經典與流光兩種樣式。
@@ -145,7 +136,7 @@ QQ 交流群：`1130794596`
 
 ## 安裝
 
-需要 Salt Player for Windows **1.18.x**（Workshop API `0.1.0-dev20`）與 **Windows 10 / 11 x64**。
+需要 Salt Player for Windows **1.18.x**（Workshop API `0.1.0-dev21`）與 **Windows 10 / 11 x64**。
 
 1. 前往 [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest) 下載 `cdl-for-spw-<版本>.spmod`；或從 [Steam 創意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3821829015) 訂閱。
 2. 在 SPW 的創意工坊 / 外掛管理中匯入該 zip；
@@ -166,7 +157,7 @@ QQ 交流群：`1130794596`
 
 ## 回饋與貢獻
 
-歡迎各位志同道合的朋友們一同共建！遇到問題或有好的功能想法，歡迎提 issue 或 PR，或加入 QQ 群 `1130794596` 交流。
+歡迎各位志同道合的朋友們一同共建！遇到問題或有好的功能想法，歡迎提 issue 或 PR，或加入 QQ 群 `1020807578` 交流。
 
 ## 授權與致謝
 
@@ -205,26 +196,26 @@ Custom Desktop Lyrics · more desktop lyrics styles for Salt Player for Windows.
 
 Displays the lyrics SPW is currently playing on your desktop: a lyrics island with many appearance options. Main lyrics, translation, spectrum, cover, background, border, and playback controls each have their own settings group, with hundreds of combinations.
 
-QQ group: `1130794596`
+QQ group: `1020807578`
 
-> **Beta**: the experience may not be perfect yet, and we will keep improving.
+> **Current version: V1.0.0
 > Plugin ID: `dev.cdl.spw`. It is independent of other lyrics plugins and can be installed alongside them.
 
 ## Features
 
 - **Preset system**: save the current configuration as a preset and import/export it (JSON, or `key=value` TXT, with the file name as the preset name). Import previews which keys will change and reports keys unknown to this version. Presets can be deleted (moved to `presets/_deleted/`, restorable by hand), overwritten, or renamed; built-in presets cannot be deleted or overwritten. (Located in the context menu.)
-- **Scale**: 149 setting keys in 11 component groups (no group exceeds 30 items); common items are adjustable directly in SPW's settings page and also available from the context menu.
+- **Scale**: 100+ setting keys in 10 component groups (no group exceeds 30 items); common items are adjustable directly in SPW's settings page and also available from the context menu.
 - **Live preview**: the sample island in the settings page shares the production drawing path, so changes are visible immediately.
 - **Tray icon**: control playback conveniently with single or double clicks.
 - **Color picker**: color field, hue bar, brightness bar, RGB fields, and hex input; hue is preserved at zero saturation.
-- **Fonts**: system fonts, font files, or the host's built-in fonts (31 families, including weights and italics); the 10 most recently used fonts are listed separately; the font list in SPW's settings page is searchable.
+- **Fonts**: system fonts, font files, or the host's built-in fonts (including weights and italics); recently used fonts are listed separately; the font list in SPW's settings page is searchable.
 - **Lyrics**: per-character highlighting (per-char / per-line / smooth), single or dual lines, size / weight / letter spacing / line gap, max width and alignment.
 - **Translation**: independent toggle, size, and color; placed above or below the main line; unsung lines can be dimmed separately.
-- **Outline**: hard, fade-out, and edge-dissolve modes; fade-out decreases layer by layer without a premultiplied mask.
-- **Island**: square, rounded rectangle, or pill, with continuous-curvature (squircle) corners; adjustable width, height, opacity, and content alignment.
-- **Materials**: solid, linear gradient, multi-color flow, and cover-camo fragment flow; flow speed is adjustable.
+- **Border**: hard and edge-dissolve modes; edge-dissolve erases the outermost ring to transparent.
+- **Island**: square, rounded rectangle, or pill, with an adjustable corner radius; adjustable width, height, opacity, and content alignment.
+- **Materials**: solid, linear gradient, multi-color flow, and cover-camo fragment flow; flow speed is adjustable (reverse and still supported).
 - **Spectrum**: bottom, right-edge five bars, ring, or radial layouts; manual, cover, level, cover-flow, or fragment color sources; bar corners, solid or polyline, and opacity.
-- **Cover**: display and scaling, cover-based colors, vinyl ring, water level, and cover-mode appearance.
+- **Cover**: display and scaling, cover-based colors, and a vinyl ring.
 - **Slot**: the right slot can host a mini spectrum, ring spectrum, radial spectrum, a clock, or nothing.
 - **Clock**: 12/24-hour format; seven-segment, dot-matrix, and pixel glyphs.
 - **Playback controls**: hover to reveal previous / play-pause / next and a draggable progress bar; classic and glowing styles.
@@ -235,7 +226,7 @@ See the in-app settings page for more settings.
 
 ## Installation
 
-Requires Salt Player for Windows **1.18.x** (Workshop API `0.1.0-dev20`) and **Windows 10 / 11 x64**.
+Requires Salt Player for Windows **1.18.x** (Workshop API `0.1.0-dev21`) and **Windows 10 / 11 x64**.
 
 1. Download `cdl-for-spw-<version>.spmod` from [Releases](https://github.com/H-2OS/CDL-SPW/releases/latest), or subscribe on the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3821829015);
 2. Import the zip in SPW's Workshop / plugin manager;
@@ -256,7 +247,7 @@ Fully quit SPW before updating, replace the package, and restart (importing may 
 
 ## Feedback and Contributions
 
-Everyone is welcome to build this project together! For issues or feature ideas, open an Issue or PR, or join the QQ group `1130794596`.
+Everyone is welcome to build this project together! For issues or feature ideas, open an Issue or PR, or join the QQ group `1020807578`.
 
 ## License and Credits
 
