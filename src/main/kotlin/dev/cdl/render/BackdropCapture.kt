@@ -740,7 +740,8 @@ class L3CaptureWorker(
                     srcBackdrop = l3,
                     cornerRadius = params.cornerRadiusPx,
                     cornerRadiusBottom = params.cornerRadiusBottomPx,
-                    roundness = GlassSdf.DEFAULT_ROUNDNESS,
+
+                    roundness = 2.0,
                     glarePercent = params.glassGlarePercent,
                     depthEffect = params.glassDepthEffect,
                     surfaceAlphaPercent = params.glassSurfaceAlpha,

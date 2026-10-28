@@ -469,6 +469,8 @@ internal class IslandWindow(
 
     private var fadeRunning = false
 
+    private var fadeTarget = 0f
+
     private var fadePrimed = false
 
     private var coverShown: BufferedImage? = null
@@ -615,7 +617,8 @@ internal class IslandWindow(
     fun setVisible(visible: Boolean) = onEdt {
         if (!started) return@onEdt
 
-        if (visible == desiredVisible && !fadeRunning) return@onEdt
+        val target = if (visible) 1f else 0f
+        if (visible == desiredVisible && (!fadeRunning || fadeTarget == target)) return@onEdt
         desiredVisible = visible
         if (visible) {
             if (!window.isVisible) {
@@ -648,6 +651,8 @@ internal class IslandWindow(
 
         val durationMs = if (fadePrimed) spec.durationMs else 0L
         fadePrimed = true
+
+        fadeTarget = to
         fadeRunning = animator.startIn(
             slot = slot,
             from = fadeAlpha,
@@ -778,7 +783,11 @@ internal class IslandWindow(
 
     private var lastVisibilityReason: String? = null
 
-    fun onPlaybackStateMaybeChanged() = onEdt { syncFrameDriver() }
+    fun onPlaybackStateMaybeChanged() = onEdt {
+
+        applyVisibility(snapshot, playing = snapshotSupplier().isPlaying)
+        syncFrameDriver()
+    }
 
     private fun syncFrameDriver() {
         if (!started) return
@@ -895,10 +904,6 @@ internal class IslandWindow(
             }
         }
 
-        if (snap.isPlaying && !window.isShowing) {
-            stopFrameDriver()
-            return
-        }
         if (!snap.isPlaying) {
 
             applyVisibility(snapshot, playing = false)
@@ -912,12 +917,17 @@ internal class IslandWindow(
             return
         }
 
+        applyVisibility(snapshot, playing = true)
+
+        if (!window.isShowing) {
+            stopFrameDriver()
+            return
+        }
+
         val docChanged = snap.docVersion != lastDocVersion
         val jumped = lastPositionMs >= 0 && abs(snap.positionMs - lastPositionMs) > SEEK_JUMP_THRESHOLD_MS
         lastDocVersion = snap.docVersion
         lastPositionMs = snap.positionMs
-
-        applyVisibility(snapshot, playing = true)
 
         if (docChanged || jumped) restartFrameDriverNow()
         panel.repaint()
@@ -3398,6 +3408,13 @@ internal class IslandWindow(
                 fraction = bandFractionNow,
             )
 
+            run {
+                val key = "${local.shapeType}/${local.cornerRadiusPercent}/${radiusBasis.toInt()}/" +
+                    "${outline.topRadiusPx.toInt()}/${outline.bottomRadiusPx.toInt()}/$bandFractionNow"
+                if (key != glassShapeLogged) {
+                    glassShapeLogged = key
+                }
+            }
             val glassCornerRadius = outline.topRadiusPx.toDouble()
             val glassCornerRadiusBottom = outline.bottomRadiusPx.toDouble()
 
@@ -4107,7 +4124,7 @@ internal class IslandWindow(
             if (alpha <= 0f) return
             val spec = Motions.resolve(Motions.LYRIC_ENTER, local.lyricMotionStyle)
 
-            val dy = spec.style.offsetYAt(progress, lineHeight)
+            val dy = spec.style.offsetYAt(progress, spec.distancePx)
             val scale = spec.style.scaleAt(progress)
             val layer = g2.create() as Graphics2D
             try {
@@ -4150,7 +4167,7 @@ internal class IslandWindow(
             val spec = Motions.resolve(Motions.LYRIC_EXIT, local.lyricMotionStyle)
             val x = alignBaselineX(width, layout.advance, local.contentAlign, areaLeft)
 
-            val dy = spec.style.offsetYAt(progress, -lineHeight)
+            val dy = spec.style.offsetYAt(progress, -spec.distancePx)
             val scale = spec.style.scaleAt(progress)
             val layer = g2.create() as Graphics2D
             try {
@@ -5685,3 +5702,5 @@ private var slotPitchLoggedAt: Long = 0L
 
 private var slotCountLogged: String = ""
 private var slotCountLoggedAt: Long = 0L
+
+private var glassShapeLogged: String = ""

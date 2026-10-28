@@ -11,6 +11,8 @@ enum class Easing {
 
     EASE_OUT,
 
+    EASE_IN,
+
     EASE_IN_OUT,
 
     OVERSHOOT,
@@ -22,6 +24,7 @@ enum class Easing {
             LINEAR -> x
 
             EASE_OUT -> 1f - (1f - x).pow(3)
+            EASE_IN -> x.pow(3)
 
             EASE_IN_OUT -> if (x < 0.5f) 4f * x * x * x else 1f - (-2f * x + 2f).pow(3) / 2f
 
@@ -248,7 +251,7 @@ enum class MotionStyle {
 
     companion object {
 
-        const val POP_SCALE_FROM = 0.94f
+        const val POP_SCALE_FROM = 0.96f
 
         val DEFAULT = SLIDE
 
@@ -388,7 +391,7 @@ object Motions {
 
     val COVER_CROSSFADE = MotionSpec(
         slot = Slots.COVER_CROSSFADE,
-        durationMs = 260L,
+        durationMs = 200L,
         easing = Easing.EASE_IN_OUT,
         style = MotionStyle.FADE,
         followsGlobalStyle = false,
@@ -396,20 +399,22 @@ object Motions {
 
     val LYRIC_EXIT = MotionSpec(
         slot = Slots.LYRIC_EXIT,
-        durationMs = 180L,
-        easing = Easing.EASE_OUT,
+        durationMs = 150L,
+        easing = Easing.EASE_IN,
         style = MotionStyle.SLIDE,
         followsGlobalStyle = true,
-        distanceFromLayout = true,
+        distanceFromLayout = false,
+        distancePx = 8f,
     )
 
     val LYRIC_ENTER = MotionSpec(
         slot = Slots.LYRIC_ENTER,
-        durationMs = 180L,
+        durationMs = 220L,
         easing = Easing.EASE_OUT,
         style = MotionStyle.SLIDE,
         followsGlobalStyle = true,
-        distanceFromLayout = true,
+        distanceFromLayout = false,
+        distancePx = 8f,
     )
 
     val MENU_FADE = MotionSpec(
@@ -425,7 +430,7 @@ object Motions {
 
         slot = null,
 
-        durationMs = 180L,
+        durationMs = 220L,
         easing = Easing.EASE_OUT,
         style = MotionStyle.SLIDE,
         followsGlobalStyle = true,
