@@ -206,6 +206,21 @@ object SettingRegistry {
         ),
 
         SettingDescriptor(
+            key = "island.hit.cover_playback",
+            group = SettingGroups.ISLAND,
+            subGroup = "交互",
+            kind = SettingKind.SWITCH,
+            title = "封面控制播放",
+            summary = "开启后：**单击封面 = 暂停/继续**，**双击封面 = 下一首**。" +
+                "单击会等一个系统双击间隔（约 0.5 秒）才生效，以便与双击区分；" +
+                "按住封面拖动仍是移动词岛，不会触发播放。" +
+                "本项**独立于**「封面参与鼠标命中」——那一项只管悬停到封面要不要展开控件。",
+            default = false,
+            phase = SettingPhase.P1,
+            preview = PreviewKind.IMMEDIATE,
+        ),
+
+        SettingDescriptor(
             key = "wheel.volume.enabled",
             group = SettingGroups.ISLAND,
             subGroup = "滚轮",
@@ -2387,7 +2402,7 @@ object SettingRegistry {
 
         val expectedByKind = mapOf(
 
-            SettingKind.SWITCH to 41,
+            SettingKind.SWITCH to 42,
 
             SettingKind.SEEKBAR to 75,
 
@@ -2407,7 +2422,7 @@ object SettingRegistry {
         val expectedByPhase = mapOf(
             SettingPhase.P0 to 5,
 
-            SettingPhase.P1 to 156,
+            SettingPhase.P1 to 157,
             SettingPhase.P4 to 0,
         )
         expectedByPhase.forEach { (phase, expected) ->
@@ -2423,7 +2438,7 @@ object SettingRegistry {
 
             SettingGroups.LYRIC_COLOR_OUTLINE to 28,
 
-            SettingGroups.ISLAND to 17,
+            SettingGroups.ISLAND to 18,
 
             SettingGroups.ISLAND_APPEARANCE to 36,
 
@@ -2490,7 +2505,7 @@ object SettingRegistry {
         }
     }
 
-const val EXPECTED_TOTAL = 161
+const val EXPECTED_TOTAL = 162
 
     data class ColorGroup(val prefix: String, val title: String, val keys: List<String>)
 

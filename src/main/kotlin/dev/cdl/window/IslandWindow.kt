@@ -239,6 +239,12 @@ internal class IslandWindow(
 
     private var dragWindowOrigin: Point? = null
 
+    private var coverClickArmed = false
+
+    private var coverPressScreen: Point? = null
+
+    private var coverClickTimer: Timer? = null
+
     private var dragTopRaised = false
 
     @Volatile
@@ -596,6 +602,9 @@ internal class IslandWindow(
 
         clockWakeTimer?.stop()
         clockWakeTimer = null
+
+        coverClickTimer?.stop()
+        coverClickTimer = null
 
         coverColorImage = null
         coverColorRgb = null
@@ -1710,6 +1719,10 @@ internal class IslandWindow(
                 }
 
                 if (consumeControlPress(e)) return
+
+                coverClickArmed = boolOf(snapshot, "island.hit.cover_playback") &&
+                    panel.hitCoverGeometry(e.x.toFloat(), e.y.toFloat())
+                coverPressScreen = if (coverClickArmed) e.locationOnScreen else null
                 if (boolOf(snapshot, "island.lock_position")) return
                 dragOrigin = e.locationOnScreen
                 dragWindowOrigin = window.location
@@ -1741,6 +1754,11 @@ internal class IslandWindow(
 
                 releaseTempTopmostIfFocusLeft()
 
+                val coverPress = coverPressScreen
+                val coverArmed = coverClickArmed
+                coverClickArmed = false
+                coverPressScreen = null
+
                 if (seekPreviewMs != null) {
                     commitSeek(e.x)
                     return
@@ -1748,6 +1766,17 @@ internal class IslandWindow(
                 if (controlPressConsumed) {
                     controlPressConsumed = false
                     return
+                }
+
+                if (coverArmed && coverPress != null) {
+                    val up = e.locationOnScreen
+                    val dx = up.x - coverPress.x
+                    val dy = up.y - coverPress.y
+
+                    val maxMove = COVER_CLICK_MAX_MOVE_PX
+                    if (dx * dx + dy * dy <= maxMove * maxMove) {
+                        handleCoverClick()
+                    }
                 }
                 if (dragOrigin == null) return
                 dragOrigin = null
@@ -2276,6 +2305,31 @@ internal class IslandWindow(
     private inline fun performPlayback(label: String, block: () -> Unit) {
         runCatching { block() }.onFailure {
         }
+    }
+
+    private fun handleCoverClick() {
+
+        val pending = coverClickTimer
+        if (pending != null && pending.isRunning) {
+            pending.stop()
+            coverClickTimer = null
+            performPlayback("下一首") { playbackActions.next() }
+            panel.repaint()
+            return
+        }
+
+        val t = Timer(coverClickDebounceMs) {
+            coverClickTimer = null
+            val playing = snapshotSupplier().isPlaying
+            performPlayback(if (playing) "暂停" else "播放") {
+                if (playing) playbackActions.pause() else playbackActions.play()
+            }
+
+            panel.repaint()
+        }
+        t.isRepeats = false
+        coverClickTimer = t
+        t.start()
     }
 
     private fun persistPosition() {
@@ -5618,6 +5672,15 @@ internal class IslandWindow(
         val DEGRADED_BACKGROUND: Color = Color(0x14, 0x16, 0x1A)
 
         const val SEEK_JUMP_THRESHOLD_MS = 800L
+
+        const val COVER_CLICK_MAX_MOVE_PX = 4
+
+        val coverClickDebounceMs: Int by lazy {
+            runCatching {
+                java.awt.Toolkit.getDefaultToolkit()
+                    .getDesktopProperty("awt.multiClickInterval") as? Int
+            }.getOrNull()?.coerceAtLeast(1) ?: 500
+        }
 
         const val HOVER_TICK_MS = 40
 

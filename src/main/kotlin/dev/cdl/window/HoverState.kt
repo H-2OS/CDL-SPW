@@ -108,6 +108,6 @@ class HoverState {
 
         const val NONE = Long.MIN_VALUE
 
-        const val FADE_IN_MS = 180f
+        const val FADE_IN_MS = 220f
     }
 }

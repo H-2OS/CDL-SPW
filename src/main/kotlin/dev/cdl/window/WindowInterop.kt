@@ -3,6 +3,7 @@ package dev.cdl.window
 
 import com.sun.jna.Native
 import com.sun.jna.Pointer
+import com.sun.jna.Structure
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.ptr.IntByReference
 import com.sun.jna.win32.StdCallLibrary
@@ -49,6 +50,12 @@ internal object WindowInterop {
         fun GetWindowTextW(hWnd: WinDef.HWND, lpString: CharArray, nMaxCount: Int): Int
 
         fun GetForegroundWindow(): WinDef.HWND?
+
+        fun MonitorFromWindow(hWnd: WinDef.HWND, dwFlags: Int): Pointer?
+
+        fun GetMonitorInfoW(hMonitor: Pointer, lpmi: MonitorInfo): Boolean
+
+        fun GetSystemMetrics(nIndex: Int): Int
 
         fun IsWindowVisible(hWnd: WinDef.HWND): Boolean
 
@@ -158,14 +165,38 @@ internal object WindowInterop {
 
         if (!api.GetWindowRect(fg, rect)) return false
 
-        val cfg = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment()
-            .defaultScreenDevice.defaultConfiguration
+        val monitor = api.MonitorFromWindow(fg, MONITOR_DEFAULTTONEAREST) ?: return false
+        val mi = MonitorInfo()
 
-        val screen = physicalBoundsOf(cfg)
-        return rect.left <= screen.x &&
-            rect.top <= screen.y &&
-            rect.right >= screen.x + screen.width &&
-            rect.bottom >= screen.y + screen.height
+        mi.cbSize = mi.size()
+        if (!api.GetMonitorInfoW(monitor, mi)) return false
+        val m = mi.rcMonitor
+        if (m.right <= m.left || m.bottom <= m.top) return false
+        return isFullscreenRect(
+            rectLeft = rect.left,
+            rectTop = rect.top,
+            rectRight = rect.right,
+            rectBottom = rect.bottom,
+            monitorLeft = m.left,
+            monitorTop = m.top,
+            monitorRight = m.right,
+            monitorBottom = m.bottom,
+        )
+    }
+
+    @Structure.FieldOrder("cbSize", "rcMonitor", "rcWork", "dwFlags")
+    class MonitorInfo : Structure() {
+        @JvmField
+        var cbSize: Int = 0
+
+        @JvmField
+        var rcMonitor: WinDef.RECT = WinDef.RECT()
+
+        @JvmField
+        var rcWork: WinDef.RECT = WinDef.RECT()
+
+        @JvmField
+        var dwFlags: Int = 0
     }
 
     fun foregroundProcessId(): Int {
@@ -305,3 +336,26 @@ fun physicalBounds(
         Math.round(logicalH * scaleY).toInt(),
     )
 }
+
+fun isFullscreenRect(
+    rectLeft: Int,
+    rectTop: Int,
+    rectRight: Int,
+    rectBottom: Int,
+    monitorLeft: Int,
+    monitorTop: Int,
+    monitorRight: Int,
+    monitorBottom: Int,
+): Boolean {
+
+    if (monitorRight <= monitorLeft || monitorBottom <= monitorTop) return false
+    return rectLeft <= monitorLeft &&
+        rectTop <= monitorTop &&
+        rectRight >= monitorRight &&
+        rectBottom >= monitorBottom
+}
+
+const val MONITOR_DEFAULTTONEAREST = 2
+
+const val SM_CXSCREEN = 0
+const val SM_CYSCREEN = 1
