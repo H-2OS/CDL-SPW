@@ -1589,28 +1589,32 @@ internal class IslandWindow(
             syncWindowYShift()
             return
         }
-        val bounds = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment()
-            .maximumWindowBounds
 
-        val restoredX = dev.cdl.window.restoredWindowX(parsed.x, parsed.width, window.width)
+        val cfg = controlsConfig()
+        val shift = windowYOffsetPx(controls.stripHeight(cfg), cfg.position == ControlsConfig.TOP)
 
-        val centerX = restoredX + window.width / 2
-        val centerY = parsed.y + window.height / 2
-        val centerInside = centerX in bounds.x until (bounds.x + bounds.width) &&
-            centerY in bounds.y until (bounds.y + bounds.height)
-        if (!centerInside) {
+        val screens = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment()
+            .screenDevices.map { it.defaultConfiguration.bounds }
+
+        val placed = dev.cdl.window.restoredWindowPlacement(
+            savedX = parsed.x,
+            savedY = parsed.y,
+            savedWidth = parsed.width,
+            windowWidth = window.width,
+            windowHeight = window.height,
+            yOffsetPx = shift,
+
+            islandHeightPx = bandGeometryNow().islandHeight,
+            screens = screens,
+        )
+        if (placed == null) {
 
             window.setLocationRelativeTo(null)
             syncWindowYShift()
             return
         }
+        window.setLocation(placed.x, placed.y)
 
-        val x = restoredX.coerceIn(bounds.x, (bounds.x + bounds.width - window.width).coerceAtLeast(bounds.x))
-        val y = parsed.y.coerceIn(bounds.y, (bounds.y + bounds.height - window.height).coerceAtLeast(bounds.y))
-
-        val cfg = controlsConfig()
-        val shift = windowYOffsetPx(controls.stripHeight(cfg), cfg.position == ControlsConfig.TOP)
-        window.setLocation(x, y - shift)
         windowYShiftPx = shift
     }
 

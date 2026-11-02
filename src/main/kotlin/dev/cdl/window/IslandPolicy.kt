@@ -76,6 +76,36 @@ fun restoredWindowX(savedX: Int, savedWidth: Int?, currentWidth: Int): Int =
         centeredWindowX(savedX, savedWidth, currentWidth)
     }
 
+fun restoredWindowPlacement(
+    savedX: Int,
+    savedY: Int,
+    savedWidth: Int?,
+    windowWidth: Int,
+    windowHeight: Int,
+    yOffsetPx: Int,
+    islandHeightPx: Int,
+    screens: List<java.awt.Rectangle>,
+): java.awt.Point? {
+    if (windowWidth <= 0 || windowHeight <= 0 || screens.isEmpty()) return null
+    val x = restoredWindowX(savedX, savedWidth, windowWidth)
+
+    val winY = savedY - yOffsetPx
+
+    val islandH = if (islandHeightPx > 0) {
+        islandHeightPx
+    } else {
+
+        (windowHeight - yOffsetPx).coerceAtLeast(1)
+    }
+
+    val screen = screens.firstOrNull { b ->
+        x < b.x + b.width && x + windowWidth > b.x &&
+            savedY < b.y + b.height && savedY + islandH > b.y
+    } ?: return null
+
+    return java.awt.Point(x, winY)
+}
+
 data class QuickPlaceTarget(val x: Int, val y: Int)
 
 enum class QuickPlaceEdge { TOP, BOTTOM }
