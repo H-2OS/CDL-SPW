@@ -2,6 +2,7 @@
 package dev.cdl.settings
 
 import java.awt.Color
+import kotlin.math.roundToInt
 
 enum class SettingKind {
 
@@ -99,7 +100,8 @@ data class SettingDescriptor(
             if (number == null) default
 
             else if (!number.isFinite()) default
-            else number.coerceIn(range!!.start, range.endInclusive).toInt()
+
+            else number.coerceIn(range!!.start, range.endInclusive).roundToInt()
         }
 
         SettingKind.LIST -> {

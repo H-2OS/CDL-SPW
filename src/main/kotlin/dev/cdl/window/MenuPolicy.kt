@@ -431,6 +431,8 @@ val TOP_LEVEL_MENU_ENTRIES: List<TopLevelMenuEntry> = listOf(
     TopLevelMenuEntry(MENU_TITLE_SOURCE_REPO, MenuItemRole.ACTION),
 
     TopLevelMenuEntry(MENU_TITLE_FEED_AUTHOR, MenuItemRole.ACTION),
+
+    TopLevelMenuEntry("上一首", MenuItemRole.ACTION),
     TopLevelMenuEntry("退出", MenuItemRole.ACTION),
 )
 

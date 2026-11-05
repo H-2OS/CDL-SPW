@@ -59,6 +59,8 @@ data class PreviewSnapshot(
 
     val backgroundCoverAngleDeg: Int,
 
+    val backgroundCoverVeilPercent: Int,
+
     val backgroundOpacity: Int,
 
     val sungColor: Int,
@@ -219,7 +221,10 @@ data class PreviewSnapshot(
                 }.getOrNull() ?: 0xFF2A2E38.toInt(),
                 materialNoiseAmplitude = int("material.noise.amplitude", 0),
                 materialQuality = str("material.quality", "FULL"),
-                materialBlurRadius = int("material.content.blur_radius", 0),
+
+                materialBlurRadius = dev.cdl.window.coverBlurPxFromPercent(
+                    int("material.content.blur_radius", 0),
+                ),
 
                 materialLiquidGlarePercent = int("material.liquid.glare_strength", 60),
                 materialLiquidDepthEffect = bool("material.liquid.depth_effect", true),
@@ -232,6 +237,8 @@ data class PreviewSnapshot(
                     SettingRegistry.descriptor("background.color")?.let { snap.int(it) }
                 }.getOrNull() ?: BACKGROUND_BASE_RGB,
                 backgroundCoverAngleDeg = int("background.cover.angle_deg", 0),
+
+                backgroundCoverVeilPercent = int("background.cover.veil_percent", -70),
                 backgroundOpacity = int("background.opacity", 96),
                 sungColor = group("main_lyric.fill.color", 255, 255, 255),
                 unsungColor = group("main_lyric.fill.unsung", 126, 129, 138),
@@ -332,6 +339,7 @@ data class PreviewSnapshot(
             backgroundColorMode = CoverPalette.MANUAL,
             backgroundColorArgb = BACKGROUND_BASE_RGB,
             backgroundCoverAngleDeg = 0,
+            backgroundCoverVeilPercent = 100,
             backgroundOpacity = 96,
             sungColor = 0xFFFFFFFF.toInt(),
             unsungColor = 0xFF7E818A.toInt(),

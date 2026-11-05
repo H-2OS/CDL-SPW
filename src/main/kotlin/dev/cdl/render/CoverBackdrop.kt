@@ -11,7 +11,18 @@ import kotlin.math.floor
 
 object CoverBackdrop {
 
-    const val MASK_ALPHA: Int = 180
+const val MASK_ALPHA: Int = 255
+
+    fun maskAlphaFor(veilPercent: Int): Int {
+        val m = veilPercent.coerceIn(-MAX_VEIL, MAX_VEIL).let { if (it < 0) -it else it }
+        if (m <= 0) return 0
+        if (m >= MAX_VEIL) return MASK_ALPHA
+        return Math.round(MASK_ALPHA * m / MAX_VEIL.toDouble()).toInt().coerceIn(0, 255)
+    }
+
+    fun maskRgbFor(veilPercent: Int): Int = if (veilPercent < 0) 0x000000 else 0xFFFFFF
+
+    const val MAX_VEIL: Int = 100
 
     const val OVERSCAN: Float = 1.002f
 
@@ -134,9 +145,11 @@ object CoverBackdrop {
             t.scale(kx, ky)
             g.drawImage(src, t, null)
 
-            g.composite = AlphaComposite.SrcOver
-            g.color = Color(maskArgb, true)
-            g.fillRect(0, 0, w, h)
+            if (((maskArgb ushr 24) and 0xFF) > 0) {
+                g.composite = AlphaComposite.SrcOver
+                g.color = Color(maskArgb, true)
+                g.fillRect(0, 0, w, h)
+            }
         } finally {
             g.dispose()
         }
@@ -175,18 +188,22 @@ object CoverBackdrop {
         var b = IntArray(sw * sh)
 
         val rf = (radius.toDouble() / ds).coerceAtLeast(1.0)
+
+        val blurred: IntArray
         if (blurKernel == KERNEL_BOX) {
             val r = rf.toInt()
             repeat(3) {
                 boxPassArr(a, b, sw, sh, r, true)
                 boxPassArr(b, a, sw, sh, r, false)
             }
+            blurred = a
         } else {
 
             poissonPassArr(a, b, sw, sh, rf.toFloat())
+            blurred = b
         }
 
-        small.setRGB(0, 0, sw, sh, a, 0, sw)
+        small.setRGB(0, 0, sw, sh, blurred, 0, sw)
         val out = BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB)
         out.createGraphics().let { g ->
             try {
@@ -377,14 +394,17 @@ object CoverBackdrop {
         val w10 = tx * (1f - ty)
         val w01 = (1f - tx) * ty
         val w11 = tx * ty
-        val a = (((c00 ushr 24) and 0xFF) * w00 + ((c10 ushr 24) and 0xFF) * w10 +
-            ((c01 ushr 24) and 0xFF) * w01 + ((c11 ushr 24) and 0xFF) * w11).toInt()
-        val r = (((c00 ushr 16) and 0xFF) * w00 + ((c10 ushr 16) and 0xFF) * w10 +
-            ((c01 ushr 16) and 0xFF) * w01 + ((c11 ushr 16) and 0xFF) * w11).toInt()
-        val g = (((c00 ushr 8) and 0xFF) * w00 + ((c10 ushr 8) and 0xFF) * w10 +
-            ((c01 ushr 8) and 0xFF) * w01 + ((c11 ushr 8) and 0xFF) * w11).toInt()
-        val b = ((c00 and 0xFF) * w00 + (c10 and 0xFF) * w10 +
-            (c01 and 0xFF) * w01 + (c11 and 0xFF) * w11).toInt()
+
+        fun ch(v: Float): Int = kotlin.math.round(v).toInt().coerceIn(0, 255)
+
+        val a = ch(((c00 ushr 24) and 0xFF) * w00 + ((c10 ushr 24) and 0xFF) * w10 +
+            ((c01 ushr 24) and 0xFF) * w01 + ((c11 ushr 24) and 0xFF) * w11)
+        val r = ch(((c00 ushr 16) and 0xFF) * w00 + ((c10 ushr 16) and 0xFF) * w10 +
+            ((c01 ushr 16) and 0xFF) * w01 + ((c11 ushr 16) and 0xFF) * w11)
+        val g = ch(((c00 ushr 8) and 0xFF) * w00 + ((c10 ushr 8) and 0xFF) * w10 +
+            ((c01 ushr 8) and 0xFF) * w01 + ((c11 ushr 8) and 0xFF) * w11)
+        val b = ch((c00 and 0xFF) * w00 + (c10 and 0xFF) * w10 +
+            (c01 and 0xFF) * w01 + (c11 and 0xFF) * w11)
         return (a shl 24) or (r shl 16) or (g shl 8) or b
     }
 }

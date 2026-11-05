@@ -192,6 +192,8 @@ class Appearance internal constructor(
 
     val backgroundCoverAngleDeg: Int,
 
+    val backgroundCoverVeilPercent: Int,
+
     val spectrumColorMode: String,
 
     val spectrumColor: Color,
@@ -363,7 +365,10 @@ class Appearance internal constructor(
                 materialLiquidSurfaceAlpha = int("material.liquid.surface_alpha", 10),
                 materialLiquidShadowStrength = int("material.liquid.shadow_strength", 60),
                 materialQuality = text("material.quality", "FULL"),
-                materialBlurRadius = int("material.content.blur_radius", 0),
+
+                materialBlurRadius = dev.cdl.window.coverBlurPxFromPercent(
+                    int("material.content.blur_radius", 0),
+                ),
 
                 materialRenderGpuBackend = bool("material.render.gpu_backend", false),
 
@@ -494,6 +499,8 @@ class Appearance internal constructor(
                 backgroundManualColor = color("background.color", BACKGROUND_BASE_RGB),
 
                 backgroundCoverAngleDeg = int("background.cover.angle_deg", 0),
+
+                backgroundCoverVeilPercent = int("background.cover.veil_percent", -70),
                 spectrumColorMode = text("spectrum.color_mode", CoverPalette.MANUAL),
 
                 spectrumColor = color("spectrum.color", DEFAULT_SPECTRUM_COLOR),

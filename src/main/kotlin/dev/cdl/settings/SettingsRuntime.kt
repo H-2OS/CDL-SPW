@@ -94,6 +94,8 @@ class SettingsStore(private val config: ConfigHelper) {
         }
         reportFallbacks(fallbackKeys)
         val snapshot = SettingsSnapshot(values)
+
+        if (fallbackKeys.isNotEmpty()) runCatching { save(snapshot) }
         lastKnown = snapshot
         return snapshot
     }

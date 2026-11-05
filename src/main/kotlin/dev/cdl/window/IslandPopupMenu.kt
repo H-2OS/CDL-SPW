@@ -3,6 +3,7 @@
 package dev.cdl.window
 
 import com.xuncorp.spw.workshop.api.WorkshopApi
+import dev.cdl.host.HostPlaybackActions
 import dev.cdl.host.CdlPlugin
 import dev.cdl.font.FontHistory
 import dev.cdl.host.CdlRuntime
@@ -157,6 +158,13 @@ internal object IslandPopupMenu {
         menu.add(JMenuItem(MENU_TITLE_FEED_AUTHOR).apply {
 
             addActionListener { showThanksWindow(settings) }
+        })
+
+        menu.add(JMenuItem("上一首").apply {
+            addActionListener {
+                runCatching { HostPlaybackActions.previous() }
+                    .onFailure {  }
+            }
         })
 
         menu.add(JMenuItem("退出").apply {

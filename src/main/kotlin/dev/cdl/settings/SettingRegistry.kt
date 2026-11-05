@@ -686,6 +686,42 @@ object SettingRegistry {
         ),
 
         SettingDescriptor(
+            key = "background.cover.veil_percent",
+            group = SettingGroups.ISLAND_APPEARANCE,
+            subGroup = "形状与背景",
+            kind = SettingKind.SEEKBAR,
+            title = "封面图遮罩",
+            summary = "仅在「背景颜色来源」选「封面图」时生效。**在封面上盖一层纯色纱**：" +
+                "负数 = **黑纱**（压暗），正数 = **白纱**（泛白）；绝对值 = 这层纱的**不透明度**。" +
+                "0 = 不盖（封面原样）· −100 = 黑纱全遮（封面完全不可见）· +100 = 白纱全遮。" +
+                "与「背景不透明度」不同 —— 后者只控制透出多少桌面，不改封面明暗。" +
+                "⚠️ 歌词是白字：遮罩越接近全白，歌词越难看清；需要压暗请用负数，别用接近 +100 的值。",
+            default = -70,
+            range = -100.0..100.0,
+            phase = SettingPhase.P1,
+
+            preview = PreviewKind.THROTTLED,
+        ),
+        SettingDescriptor(
+            key = "material.content.blur_radius",
+            group = SettingGroups.ISLAND_APPEARANCE,
+
+            subGroup = "形状与背景",
+            kind = SettingKind.SEEKBAR,
+            title = "封面图 · 底图模糊",
+            summary = "**只在「背景颜色来源 = 封面图」这一档生效**：把那张**铺满岛体的封面图（底图）**糊掉。" +
+                "0 ~ 100%，100% = 最糊，0 = 关闭。" +
+                "⚠️ 它**不是**全局背景模糊 —— 纯色 / 渐变 / 多色档下**没有封面图可糊，本项不起作用**；" +
+                "也**不是**左上角那个**小封面缩略图**（那个不受本项影响）。" +
+                "另外与「玻璃 · 模糊半径」不同：那项模糊的是**桌面/别的窗口**（需要截屏），本项只处理岛内这张图。",
+
+            default = 0,
+            range = 0.0..100.0,
+            phase = SettingPhase.P1,
+            preview = PreviewKind.THROTTLED,
+        ),
+
+        SettingDescriptor(
             key = "background.color_mode",
             group = SettingGroups.ISLAND_APPEARANCE,
             subGroup = "形状与背景",
@@ -968,19 +1004,6 @@ object SettingRegistry {
             phase = SettingPhase.P1,
             preview = PreviewKind.THROTTLED,
 
-        ),
-        SettingDescriptor(
-            key = "material.content.blur_radius",
-            group = SettingGroups.ISLAND_APPEARANCE,
-            subGroup = "词岛材质",
-            kind = SettingKind.SEEKBAR,
-            title = "封面图模糊",
-            summary = "模糊岛体自己的封面图背景（不采桌面）。0 = 关闭。它不是「身后窗口模糊」（那个要采桌面，见 L3）。",
-
-            default = 0,
-            range = 0.0..40.0,
-            phase = SettingPhase.P1,
-            preview = PreviewKind.THROTTLED,
         ),
         SettingDescriptor(
             key = "material.render.gpu_backend",
@@ -2404,7 +2427,7 @@ object SettingRegistry {
 
             SettingKind.SWITCH to 42,
 
-            SettingKind.SEEKBAR to 75,
+            SettingKind.SEEKBAR to 76,
 
             SettingKind.LIST to 39,
             SettingKind.EDITTEXT to 1,
@@ -2422,7 +2445,7 @@ object SettingRegistry {
         val expectedByPhase = mapOf(
             SettingPhase.P0 to 5,
 
-            SettingPhase.P1 to 157,
+            SettingPhase.P1 to 158,
             SettingPhase.P4 to 0,
         )
         expectedByPhase.forEach { (phase, expected) ->
@@ -2440,7 +2463,7 @@ object SettingRegistry {
 
             SettingGroups.ISLAND to 18,
 
-            SettingGroups.ISLAND_APPEARANCE to 36,
+            SettingGroups.ISLAND_APPEARANCE to 37,
 
             SettingGroups.RIGHT_SLOT to 12,
 
@@ -2505,7 +2528,7 @@ object SettingRegistry {
         }
     }
 
-const val EXPECTED_TOTAL = 162
+const val EXPECTED_TOTAL = 163
 
     data class ColorGroup(val prefix: String, val title: String, val keys: List<String>)
 

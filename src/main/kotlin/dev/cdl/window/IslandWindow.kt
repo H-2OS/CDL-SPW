@@ -83,6 +83,8 @@ import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
+private var lastScrollDiagText: String = ""
+
 fun trackCreditLine(snap: TimelineSnapshot, showAlbum: Boolean): String {
     val title = snap.trackTitle.trim()
     if (title.isEmpty()) return ""
@@ -3975,9 +3977,8 @@ internal class IslandWindow(
 
             if (percent <= 0) return
 
-            val maskBase = coverRgb?.let { CoverPalette.darkFrom(it) }
-                ?: Color(BACKGROUND_BASE_RGB)
-            val maskArgb = (CoverBackdrop.MASK_ALPHA shl 24) or (maskBase.rgb and 0xFFFFFF)
+            val veil = local.backgroundCoverVeilPercent
+            val maskArgb = (CoverBackdrop.maskAlphaFor(veil) shl 24) or CoverBackdrop.maskRgbFor(veil)
 
             val baked = CoverBackdrop.baked(
                 src = src,
@@ -5222,11 +5223,18 @@ internal class IslandWindow(
             val scrolling = overflow > SCROLL_MIN_OVERFLOW_PX && atWidthCap
 
             val scrollProgress = if (slot.isCurrent) sharedSweepFraction(line, effectiveMs) else 0f
-            val baselineX = alignedX + if (scrolling) {
+            val scrollOffset = if (scrolling) {
                 marqueeOffsetForProgress(layout.advance, scrollProgress, availWidth)
             } else {
                 0f
             }
+
+            if (scrolling && scrollProgress >= 0.98f && text != lastScrollDiagText) {
+                lastScrollDiagText = text
+            }
+
+            val scrollOriginX = areaLeft + HORIZONTAL_INSET
+            val baselineX = (if (scrolling) scrollOriginX else alignedX) + scrollOffset
             val baselineY = lyricBaselineY(center, layout.ascent, layout.descent)
 
             drawnRows.add(DrawnRow(text, layout, baselineX, baselineY))

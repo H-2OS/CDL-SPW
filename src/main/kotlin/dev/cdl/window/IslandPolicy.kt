@@ -846,9 +846,7 @@ fun translationExtraGapPx(fontSize: Int, translationScale: Float, lineGapPx: Flo
     val g = if (lineGapPx.isFinite()) lineGapPx.coerceAtLeast(0f) else 0f
     val trim = lineBoxTrimPx(fontSize, translationScale)
 
-    val t = (g / TRANSLATION_GAP_PX).coerceIn(0f, 1f)
-
-    return TRANSLATION_GAP_PX * t + g - trim * (1f - t)
+    return g - trim
 }
 
 const val HORIZONTAL_INSET = 14f
@@ -1062,3 +1060,12 @@ fun applyWheelToVolume(
 }
 
 fun wheelVolumeActive(enabled: Boolean, hit: Boolean): Boolean = enabled && hit
+
+const val COVER_BLUR_MAX_PX: Int = 20
+
+fun coverBlurPxFromPercent(percent: Int): Int {
+    val p = percent.coerceIn(0, 100)
+    if (p == 0) return 0
+
+    return (p * COVER_BLUR_MAX_PX + 99) / 100
+}

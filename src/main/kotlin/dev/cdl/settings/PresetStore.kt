@@ -536,6 +536,8 @@ object PresetStore {
                 "background.color" to "#14161A",
                 "background.color_mode" to "manual",
                 "background.cover.angle_deg" to 0,
+
+                "background.cover.veil_percent" to -70,
                 "background.opacity" to 0,
                 "clock.hour_format" to "H24",
                 "clock.style" to "SEGMENT",
@@ -700,6 +702,8 @@ object PresetStore {
                 "background.color" to "#14161A",
                 "background.color_mode" to "manual",
                 "background.cover.angle_deg" to 0,
+
+                "background.cover.veil_percent" to -70,
                 "background.opacity" to 80,
                 "clock.hour_format" to "H24",
                 "clock.style" to "SEGMENT",

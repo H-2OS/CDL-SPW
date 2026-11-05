@@ -13,6 +13,12 @@ public object SevenSegment {
 
     public const val ALL: Int = A or B or C or D or E or F or G
 
+    public const val COLON_MASK: Int = 1 shl 7
+
+    public const val COLON_DOT_TO_THICKNESS: Float = 1.35f
+
+    public const val COLON_DOT_TOP_CENTER: Float = 1f / 3f
+
     public fun maskOf(ch: Char): Int = when (ch) {
         '0' -> A or B or C or D or E or F
         '1' -> B or C
@@ -25,7 +31,7 @@ public object SevenSegment {
         '8' -> ALL
         '9' -> A or B or C or D or F or G
 
-        ':' -> G
+        ':' -> COLON_MASK
         else -> -1
     }
 
@@ -124,6 +130,33 @@ public object SevenSegment {
         }
     }
 
+    public fun colonDotPolygons(
+        x: Float,
+        y: Float,
+        w: Float,
+        h: Float,
+        thicknessRefWidthPx: Float = -1f,
+    ): List<FloatArray> {
+        val t = (if (thicknessRefWidthPx > 0f) thicknessRefWidthPx else w) * SEGMENT_THICKNESS_RATIO
+
+        val side = maxOf(t * COLON_DOT_TO_THICKNESS, MIN_SEGMENT_PX)
+        if (!(w > 0f) || !(h > 0f)) return emptyList()
+        val left = x + w / 2f - side / 2f
+        fun dot(cy: Float): FloatArray {
+            val top = cy - side / 2f
+            return floatArrayOf(
+                left, top,
+                left + side, top,
+                left + side, top + side,
+                left, top + side,
+            )
+        }
+        return listOf(
+            dot(y + h * COLON_DOT_TOP_CENTER),
+            dot(y + h * (1f - COLON_DOT_TOP_CENTER)),
+        )
+    }
+
     public fun glyphPolygons(
         ch: Char,
         x: Float,
@@ -134,6 +167,8 @@ public object SevenSegment {
     ): List<FloatArray> {
         val mask = maskOf(ch)
         if (mask < 0) return emptyList()
+
+        if (mask and COLON_MASK != 0) return colonDotPolygons(x, y, w, h, thicknessRefWidthPx)
         val out = ArrayList<FloatArray>(7)
         for (seg in intArrayOf(A, B, C, D, E, F, G)) {
             if (mask and seg == 0) continue

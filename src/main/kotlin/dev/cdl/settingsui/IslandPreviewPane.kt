@@ -723,8 +723,8 @@ class IslandPreviewPane(
 
         if (percent <= 0) return
 
-        val maskBase = coverRgb?.let { CoverPalette.darkFrom(it) } ?: Color(BACKGROUND_BASE_RGB)
-        val maskArgb = (CoverBackdrop.MASK_ALPHA shl 24) or (maskBase.rgb and 0xFFFFFF)
+        val veil = snapshot.backgroundCoverVeilPercent
+        val maskArgb = (CoverBackdrop.maskAlphaFor(veil) shl 24) or CoverBackdrop.maskRgbFor(veil)
 
         val baked = CoverBackdrop.baked(
             src = src,
